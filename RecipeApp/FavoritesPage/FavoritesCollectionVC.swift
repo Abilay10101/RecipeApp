@@ -22,6 +22,7 @@ class FavoritesCollectionVC: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         //title = "Favorites"
+        view.backgroundColor = .purple
     }
     
     init() {

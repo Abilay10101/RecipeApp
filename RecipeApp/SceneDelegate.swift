@@ -19,22 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        /*
-        let recipeVC = RecipesCollectionVC()
-        let categoryVC = CategoryTableVC()
-        let shoppingListVC = ShoppingListTableVC()
-        let favoritesVC = FavoritesCollectionVC()
-        
-        // nav
-        
-        let recipeNav = UINavigationController(rootViewController: recipeVC)
-        let categoryNav = UINavigationController(rootViewController: categoryVC)
-        let shoppingListNav = UINavigationController(rootViewController: shoppingListVC)
-        let favoritesNav = UINavigationController(rootViewController: favoritesVC)
-        */
-        
         let tabBarVC = TabBarVC()
-        //tabBarVC.setViewControllers([recipeNav , categoryNav , shoppingListNav , favoritesNav], animated: true)
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }

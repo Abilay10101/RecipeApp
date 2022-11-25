@@ -22,8 +22,6 @@ class TabBarVC: UITabBarController {
         let shoppingListVC = ShoppingListTableVC()
         let favoritesVC = FavoritesCollectionVC()
         
-        // nav
-        
         let recipeNav = UINavigationController(rootViewController: recipeVC)
         let categoryNav = UINavigationController(rootViewController: categoryVC)
         let shoppingListNav = UINavigationController(rootViewController: shoppingListVC)
