@@ -13,6 +13,11 @@
 		0B271BF0292696E8000AAB22 /* ShoppingListTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BEF292696E8000AAB22 /* ShoppingListTableVC.swift */; };
 		0B271BF429269736000AAB22 /* FavoritesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BF329269736000AAB22 /* FavoritesCollectionVC.swift */; };
 		0B4A9702292C9E7F007185A7 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A9701292C9E7F007185A7 /* RecipeCollectionViewCell.swift */; };
+		0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C21E2933746E00FFE46B /* SubView1.swift */; };
+		0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C220293376D100FFE46B /* SubView1CollectionViewCell.swift */; };
+		0BB3C2232933898900FFE46B /* IngredientsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C2222933898900FFE46B /* IngredientsSubView.swift */; };
+		0BB3C22529339C9A00FFE46B /* IngredientsSudCViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C22429339C9A00FFE46B /* IngredientsSudCViewCell.swift */; };
+		0BB3C2272933CE7800FFE46B /* TextSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C2262933CE7800FFE46B /* TextSubView.swift */; };
 		0BB7747429233FD9001F30C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7747329233FD9001F30C6 /* AppDelegate.swift */; };
 		0BB7747629233FD9001F30C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7747529233FD9001F30C6 /* SceneDelegate.swift */; };
 		0BB7747E29233FD9001F30C6 /* RecipeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7747C29233FD9001F30C6 /* RecipeApp.xcdatamodeld */; };
@@ -31,6 +36,11 @@
 		0B271BEF292696E8000AAB22 /* ShoppingListTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableVC.swift; sourceTree = "<group>"; };
 		0B271BF329269736000AAB22 /* FavoritesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionVC.swift; sourceTree = "<group>"; };
 		0B4A9701292C9E7F007185A7 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
+		0BB3C21E2933746E00FFE46B /* SubView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubView1.swift; sourceTree = "<group>"; };
+		0BB3C220293376D100FFE46B /* SubView1CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubView1CollectionViewCell.swift; sourceTree = "<group>"; };
+		0BB3C2222933898900FFE46B /* IngredientsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsSubView.swift; sourceTree = "<group>"; };
+		0BB3C22429339C9A00FFE46B /* IngredientsSudCViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsSudCViewCell.swift; sourceTree = "<group>"; };
+		0BB3C2262933CE7800FFE46B /* TextSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubView.swift; sourceTree = "<group>"; };
 		0BB7747029233FD9001F30C6 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB7747329233FD9001F30C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BB7747529233FD9001F30C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +74,12 @@
 				0B271BE329269597000AAB22 /* RecipesCollectionVC.swift */,
 				0B1C50C8292F749C00BAFE9F /* DetailedRecipeVC.swift */,
 				0B4A9701292C9E7F007185A7 /* RecipeCollectionViewCell.swift */,
+				0BB3C2222933898900FFE46B /* IngredientsSubView.swift */,
+				0BB3C22429339C9A00FFE46B /* IngredientsSudCViewCell.swift */,
+				0BB3C2262933CE7800FFE46B /* TextSubView.swift */,
 				0BD6BF9C292E8E1300B03182 /* RecipeStr.swift */,
+				0BB3C21E2933746E00FFE46B /* SubView1.swift */,
+				0BB3C220293376D100FFE46B /* SubView1CollectionViewCell.swift */,
 			);
 			path = RecipePage;
 			sourceTree = "<group>";
@@ -263,15 +278,20 @@
 			files = (
 				0B271BF0292696E8000AAB22 /* ShoppingListTableVC.swift in Sources */,
 				0BB7747429233FD9001F30C6 /* AppDelegate.swift in Sources */,
+				0BB3C2232933898900FFE46B /* IngredientsSubView.swift in Sources */,
 				0B4A9702292C9E7F007185A7 /* RecipeCollectionViewCell.swift in Sources */,
 				0B271BE829269627000AAB22 /* CategoryTableVC.swift in Sources */,
 				0BB7747629233FD9001F30C6 /* SceneDelegate.swift in Sources */,
 				0B271BE429269597000AAB22 /* RecipesCollectionVC.swift in Sources */,
+				0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */,
+				0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */,
+				0BB3C2272933CE7800FFE46B /* TextSubView.swift in Sources */,
 				0B1C50C9292F749C00BAFE9F /* DetailedRecipeVC.swift in Sources */,
 				0BB7747E29233FD9001F30C6 /* RecipeApp.xcdatamodeld in Sources */,
 				0BDFE0342926B7AD0085CEE5 /* TabBarVC.swift in Sources */,
 				0B271BF429269736000AAB22 /* FavoritesCollectionVC.swift in Sources */,
 				0BDFE0362926BFEC0085CEE5 /* UIColorExtention.swift in Sources */,
+				0BB3C22529339C9A00FFE46B /* IngredientsSudCViewCell.swift in Sources */,
 				0BD6BF9D292E8E1300B03182 /* RecipeStr.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
