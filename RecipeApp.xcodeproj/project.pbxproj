@@ -12,6 +12,7 @@
 		0B271BE829269627000AAB22 /* CategoryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BE729269627000AAB22 /* CategoryTableVC.swift */; };
 		0B271BF0292696E8000AAB22 /* ShoppingListTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BEF292696E8000AAB22 /* ShoppingListTableVC.swift */; };
 		0B271BF429269736000AAB22 /* FavoritesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BF329269736000AAB22 /* FavoritesCollectionVC.swift */; };
+		0B3DDD19293BD19500479B6A /* OptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3DDD18293BD19500479B6A /* OptionsTableViewCell.swift */; };
 		0B4A9702292C9E7F007185A7 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A9701292C9E7F007185A7 /* RecipeCollectionViewCell.swift */; };
 		0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C21E2933746E00FFE46B /* SubView1.swift */; };
 		0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB3C220293376D100FFE46B /* SubView1CollectionViewCell.swift */; };
@@ -23,6 +24,10 @@
 		0BB7747E29233FD9001F30C6 /* RecipeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7747C29233FD9001F30C6 /* RecipeApp.xcdatamodeld */; };
 		0BB7748029233FDA001F30C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB7747F29233FDA001F30C6 /* Assets.xcassets */; };
 		0BB7748329233FDA001F30C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB7748129233FDA001F30C6 /* LaunchScreen.storyboard */; };
+		0BBA78312935D38E00CF3827 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBA78302935D38E00CF3827 /* CategoryTableViewCell.swift */; };
+		0BBA78332938913800CF3827 /* InnerCategoryCollectiovVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBA78322938913800CF3827 /* InnerCategoryCollectiovVC.swift */; };
+		0BBA78352938915700CF3827 /* InnerCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBA78342938915700CF3827 /* InnerCategoryCollectionViewCell.swift */; };
+		0BBA78372938C87200CF3827 /* OptionsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBA78362938C87200CF3827 /* OptionsTableVC.swift */; };
 		0BD6BF9D292E8E1300B03182 /* RecipeStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD6BF9C292E8E1300B03182 /* RecipeStr.swift */; };
 		0BDFE0342926B7AD0085CEE5 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */; };
 		0BDFE0362926BFEC0085CEE5 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */; };
@@ -35,6 +40,7 @@
 		0B271BE729269627000AAB22 /* CategoryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableVC.swift; sourceTree = "<group>"; };
 		0B271BEF292696E8000AAB22 /* ShoppingListTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableVC.swift; sourceTree = "<group>"; };
 		0B271BF329269736000AAB22 /* FavoritesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionVC.swift; sourceTree = "<group>"; };
+		0B3DDD18293BD19500479B6A /* OptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTableViewCell.swift; sourceTree = "<group>"; };
 		0B4A9701292C9E7F007185A7 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		0BB3C21E2933746E00FFE46B /* SubView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubView1.swift; sourceTree = "<group>"; };
 		0BB3C220293376D100FFE46B /* SubView1CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubView1CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -48,6 +54,10 @@
 		0BB7747F29233FDA001F30C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BB7748229233FDA001F30C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BB7748429233FDA001F30C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BBA78302935D38E00CF3827 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		0BBA78322938913800CF3827 /* InnerCategoryCollectiovVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerCategoryCollectiovVC.swift; sourceTree = "<group>"; };
+		0BBA78342938915700CF3827 /* InnerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		0BBA78362938C87200CF3827 /* OptionsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTableVC.swift; sourceTree = "<group>"; };
 		0BD6BF9C292E8E1300B03182 /* RecipeStr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStr.swift; sourceTree = "<group>"; };
 		0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
@@ -88,6 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				0B271BE729269627000AAB22 /* CategoryTableVC.swift */,
+				0BBA78302935D38E00CF3827 /* CategoryTableViewCell.swift */,
+				0BBA78322938913800CF3827 /* InnerCategoryCollectiovVC.swift */,
+				0BBA78342938915700CF3827 /* InnerCategoryCollectionViewCell.swift */,
 			);
 			path = CategotyPage;
 			sourceTree = "<group>";
@@ -104,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				0B271BF329269736000AAB22 /* FavoritesCollectionVC.swift */,
+				0BBA78362938C87200CF3827 /* OptionsTableVC.swift */,
+				0B3DDD18293BD19500479B6A /* OptionsTableViewCell.swift */,
 			);
 			path = FavoritesPage;
 			sourceTree = "<group>";
@@ -280,19 +295,24 @@
 				0BB7747429233FD9001F30C6 /* AppDelegate.swift in Sources */,
 				0BB3C2232933898900FFE46B /* IngredientsSubView.swift in Sources */,
 				0B4A9702292C9E7F007185A7 /* RecipeCollectionViewCell.swift in Sources */,
+				0B3DDD19293BD19500479B6A /* OptionsTableViewCell.swift in Sources */,
 				0B271BE829269627000AAB22 /* CategoryTableVC.swift in Sources */,
 				0BB7747629233FD9001F30C6 /* SceneDelegate.swift in Sources */,
 				0B271BE429269597000AAB22 /* RecipesCollectionVC.swift in Sources */,
 				0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */,
+				0BBA78332938913800CF3827 /* InnerCategoryCollectiovVC.swift in Sources */,
 				0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */,
 				0BB3C2272933CE7800FFE46B /* TextSubView.swift in Sources */,
 				0B1C50C9292F749C00BAFE9F /* DetailedRecipeVC.swift in Sources */,
 				0BB7747E29233FD9001F30C6 /* RecipeApp.xcdatamodeld in Sources */,
+				0BBA78352938915700CF3827 /* InnerCategoryCollectionViewCell.swift in Sources */,
 				0BDFE0342926B7AD0085CEE5 /* TabBarVC.swift in Sources */,
 				0B271BF429269736000AAB22 /* FavoritesCollectionVC.swift in Sources */,
 				0BDFE0362926BFEC0085CEE5 /* UIColorExtention.swift in Sources */,
 				0BB3C22529339C9A00FFE46B /* IngredientsSudCViewCell.swift in Sources */,
 				0BD6BF9D292E8E1300B03182 /* RecipeStr.swift in Sources */,
+				0BBA78312935D38E00CF3827 /* CategoryTableViewCell.swift in Sources */,
+				0BBA78372938C87200CF3827 /* OptionsTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

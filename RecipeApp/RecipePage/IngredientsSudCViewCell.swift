@@ -18,6 +18,13 @@ class IngredientsSudCViewCell: UICollectionViewCell {
         return label
     }()
     
+    let btnAdd: UIButton = {
+        var btn = UIButton()
+        btn.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
+        btn.tintColor = .gray
+        return btn
+    }()
+    
     override var isSelected: Bool {
         didSet {
             if isSelected {
@@ -44,17 +51,10 @@ class IngredientsSudCViewCell: UICollectionViewCell {
         backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 10
         addSubview(percentLabel)
+        addSubview(btnAdd)
     }
     
     func setConstraints() {
-        
-        /*NSLayoutConstraint.activate([
-            percentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
-            percentLabel.trailingAnchor.constraint(equalTo: trailingAnchor , constant: -2),
-            percentLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-            
-        
-        ])*/
         
         percentLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -63,7 +63,12 @@ class IngredientsSudCViewCell: UICollectionViewCell {
             //make.width.equalTo(frame.width / 2)
         }
         
-        
+        btnAdd.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-20)
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+        }
         
     }
 }

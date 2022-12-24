@@ -58,7 +58,6 @@ class TextSubView: UIView {
             make.height.equalTo(400)
         }
         
-        
     }
     
 }

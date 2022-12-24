@@ -1,15 +1,15 @@
 //
-//  RecipesCollectionVC.swift
+//  InnerCategoryCollectiovVC.swift
 //  RecipeApp
 //
-//  Created by Arip Khozhbanov on 17.11.2022.
+//  Created by Arip Khozhbanov on 01.12.2022.
 //
 
 import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class InnerCategoryCollectiovVC: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
     let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -17,23 +17,21 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     
     let arrTest = [RecipeStr(image: "meme1", name: "meme1"), RecipeStr(image: "meme2", name: "meme2"), RecipeStr(image: "meme3", name: "meme3")]
     var filteredData = [RecipeStr]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         filteredData = arrTest
 
         self.collectionView!.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         title = "Recipes"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
         
         configureSearchController()
     }
     
     init() {
             super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }   
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -92,10 +90,10 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
         let detailVC = DetailedRecipeVC()
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
+
 }
 
-extension RecipesCollectionVC: UISearchResultsUpdating , UISearchBarDelegate {
+extension InnerCategoryCollectiovVC: UISearchResultsUpdating , UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text!

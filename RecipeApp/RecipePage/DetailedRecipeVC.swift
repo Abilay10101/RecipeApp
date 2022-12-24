@@ -11,6 +11,7 @@ class DetailedRecipeVC: UIViewController {
     
     var img = UIImage()
     var name = "Ленивые сосичски в лаваше с сыром"
+    var starFlag1 = true
     
     let imageView: UIImageView = {
         var imageView = UIImageView()
@@ -37,7 +38,7 @@ class DetailedRecipeVC: UIViewController {
     
     let textSubView = TextSubView()
     
-    lazy var contendViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 600)
+    lazy var contendViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 400)
     
     lazy var scroll : UIScrollView = {
         var scroll = UIScrollView(frame: .zero)
@@ -57,6 +58,14 @@ class DetailedRecipeVC: UIViewController {
     }()
     
     
+    @objc func function1 () {
+        //barBtn2.image = UIImage(systemName: "star.fill")
+        print("wow")
+    }
+    
+    @objc func function2() {
+        
+    }
     
 
     override func viewDidLoad() {
@@ -67,9 +76,24 @@ class DetailedRecipeVC: UIViewController {
         imageView.image = img
         nameLabel.text = name
         
+        let barBtn1 : UIBarButtonItem = {
+            let barBtn1 = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(function1))
+            barBtn1.tintColor = .tabBarItemAccent
+            return barBtn1
+        }()
+        
+        let barBtn2 : UIBarButtonItem = {
+            let barBtn2 = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(function2))
+            barBtn2.tintColor = .tabBarItemAccent
+            return barBtn2
+        }()
+        
+        navigationItem.setRightBarButtonItems([barBtn1 , barBtn2], animated: true)
+        
     }
     
     func setupView () {
+        
         
         view.addSubview(scroll)
         scroll.addSubview(boxView)
@@ -79,6 +103,8 @@ class DetailedRecipeVC: UIViewController {
         boxView.addSubview(subView1)
         boxView.addSubview(ingredientsView)
         boxView.addSubview(textSubView)
+
+        
     }
     
     func setupConstraints () {
