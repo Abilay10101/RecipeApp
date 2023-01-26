@@ -72,12 +72,6 @@ class DetailedRecipeVC: UIViewController {
         
     }
 
-    func fetchData () {
-        
-        NetworkRequests.sendRequest(url: testURL2)
-        
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

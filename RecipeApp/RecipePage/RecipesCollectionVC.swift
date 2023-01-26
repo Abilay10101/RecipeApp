@@ -112,6 +112,7 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailedRecipeVC()
+        detailVC.testURL2 = "https://api.spoonacular.com/recipes/\(randNum[indexPath.item])/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97"
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -133,10 +134,10 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
                 print(self.randNum[i])
                 
                 let name = jsonData["title"] as! String
-                //let imgStr = jsonData["image"] as! String
+                let imgStr = jsonData["image"] as! String
                 
                 self.filteredData[i].name = name
-                //self.arrTest[i].image = imgStr
+                self.arrTest[i].image = imgStr
                 self.collectionView.reloadData()
             }
         }

@@ -15,8 +15,17 @@ class RecipeCollectionViewCell: UICollectionViewCell {
             guard let image = recipe?.image else { return }
             guard let name = recipe?.name else { return }
             
-            imageView.image = UIImage(named: image)
+            
             nameLabel.text = name
+            
+            DispatchQueue.global().async {
+                guard let imageUrl = URL(string: image) else { return }
+                guard let imageData = try? Data(contentsOf: imageUrl) else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                }
+            }
         }
     }
     
