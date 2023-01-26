@@ -1,33 +1,29 @@
 //
-//  CategoryTableViewCell.swift
+//  ShoppingListTableViewCell.swift
 //  RecipeApp
 //
-//  Created by Arip Khozhbanov on 29.11.2022.
+//  Created by Arip Khozhbanov on 21.01.2023.
 //
 
 import UIKit
 
-class CategoryTableViewCell: UITableViewCell {
-    
-    let imageView1 : UIImageView = {
+class ShoppingListTableViewCell: UITableViewCell {
+
+    var imageView1 : UIImageView = {
         var imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let nameLabel : UILabel = {
+    //var view1 = UIView()
+    
+    var nameLabel : UILabel = {
         var label = UILabel()
-        label.text = "Breakfast"
-        label.textColor = UIColor.tabBarItemAccent
-        label.font = UIFont(name: "Avenir Next Bold", size: 20)
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.7
-        label.numberOfLines = 2
+        label.text = "Coconut"
         label.textAlignment = .left
         return label
     }()
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -46,26 +42,27 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func setupViews () {
-        imageView1.layer.cornerRadius = 50
-        addSubview(imageView1)
-        addSubview(nameLabel)
+        addSubview(contentView)
+        contentView.addSubview(imageView1)
+        contentView.addSubview(nameLabel)
     }
+    
     func setupConstraints() {
         
         imageView1.snp.makeConstraints { make in
             make.left.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-10)
-            make.width.equalTo(contentView.frame.height )
+            make.width.equalTo(35)
+            make.height.equalTo(35)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.left.equalTo(imageView1.snp.right).offset(10)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview()
-            make.height.equalTo(40)
+            make.height.equalTo(35)
         }
+        
     }
-    
-    
 
 }

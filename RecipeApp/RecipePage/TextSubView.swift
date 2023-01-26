@@ -13,7 +13,7 @@ class TextSubView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Интрукция"
+        label.text = "Instructions"
         label.textColor = #colorLiteral(red: 0.2454499006, green: 0.2894837558, blue: 0.3496103287, alpha: 1)
         label.font = UIFont(name: "Avenir Next Bold", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false

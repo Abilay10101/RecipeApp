@@ -18,7 +18,7 @@ class SubView1: UIView {
         return collectionView
     }()
     
-    let tipsArray = ["10мин подготовка" , "10мин готовка" , "1 сложность" , "2 порции"]
+    var tipsArray = ["10мин подготовка" , "10мин готовка" , "1 сложность" , "2 порции"]
     var tipsCount = 0
     
     override init(frame: CGRect) {

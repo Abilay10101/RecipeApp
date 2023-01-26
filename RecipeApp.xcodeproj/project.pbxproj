@@ -31,6 +31,11 @@
 		0BD6BF9D292E8E1300B03182 /* RecipeStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD6BF9C292E8E1300B03182 /* RecipeStr.swift */; };
 		0BDFE0342926B7AD0085CEE5 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */; };
 		0BDFE0362926BFEC0085CEE5 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */; };
+		0BEC6A06297C0070000DFC04 /* ShoppingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEC6A05297C0070000DFC04 /* ShoppingListTableViewCell.swift */; };
+		0BEC6A08297C3B8C000DFC04 /* SimpleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEC6A07297C3B8C000DFC04 /* SimpleModel.swift */; };
+		0BEC6A15297D9460000DFC04 /* ToBuyListItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEC6A13297D9460000DFC04 /* ToBuyListItem+CoreDataClass.swift */; };
+		0BEC6A16297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEC6A14297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift */; };
+		0BEC6A2029812C14000DFC04 /* NetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEC6A1F29812C14000DFC04 /* NetworkRequests.swift */; };
 		A41030F9494315C8814FDB5B /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBDA506360254E0EAEB7373D /* Pods_RecipeApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +66,11 @@
 		0BD6BF9C292E8E1300B03182 /* RecipeStr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStr.swift; sourceTree = "<group>"; };
 		0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
+		0BEC6A05297C0070000DFC04 /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
+		0BEC6A07297C3B8C000DFC04 /* SimpleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleModel.swift; sourceTree = "<group>"; };
+		0BEC6A13297D9460000DFC04 /* ToBuyListItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToBuyListItem+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0BEC6A14297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToBuyListItem+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0BEC6A1F29812C14000DFC04 /* NetworkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequests.swift; sourceTree = "<group>"; };
 		16C1F0906411488EB95C252F /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
 		86D8571FD17C4B76FD733A97 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DBDA506360254E0EAEB7373D /* Pods_RecipeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				0B271BEF292696E8000AAB22 /* ShoppingListTableVC.swift */,
+				0BEC6A05297C0070000DFC04 /* ShoppingListTableViewCell.swift */,
+				0BEC6A07297C3B8C000DFC04 /* SimpleModel.swift */,
 			);
 			path = ShoppingListPage;
 			sourceTree = "<group>";
@@ -144,6 +156,7 @@
 		0BB7747229233FD9001F30C6 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				0BEC6A12297D93CF000DFC04 /* ToBuyListItem */,
 				0BB7747329233FD9001F30C6 /* AppDelegate.swift */,
 				0BB7747529233FD9001F30C6 /* SceneDelegate.swift */,
 				0BB7747F29233FDA001F30C6 /* Assets.xcassets */,
@@ -151,6 +164,7 @@
 				0BB7748129233FDA001F30C6 /* LaunchScreen.storyboard */,
 				0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */,
 				0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */,
+				0BEC6A1F29812C14000DFC04 /* NetworkRequests.swift */,
 				0B271BE6292695C9000AAB22 /* RecipePage */,
 				0B271BE92926962F000AAB22 /* CategotyPage */,
 				0B271BEA292696AB000AAB22 /* ShoppingListPage */,
@@ -158,6 +172,15 @@
 				0BB7748429233FDA001F30C6 /* Info.plist */,
 			);
 			path = RecipeApp;
+			sourceTree = "<group>";
+		};
+		0BEC6A12297D93CF000DFC04 /* ToBuyListItem */ = {
+			isa = PBXGroup;
+			children = (
+				0BEC6A13297D9460000DFC04 /* ToBuyListItem+CoreDataClass.swift */,
+				0BEC6A14297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift */,
+			);
+			path = ToBuyListItem;
 			sourceTree = "<group>";
 		};
 		2361C0FD7AD877FED143E423 /* Pods */ = {
@@ -301,13 +324,18 @@
 				0B271BE429269597000AAB22 /* RecipesCollectionVC.swift in Sources */,
 				0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */,
 				0BBA78332938913800CF3827 /* InnerCategoryCollectiovVC.swift in Sources */,
+				0BEC6A16297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift in Sources */,
 				0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */,
 				0BB3C2272933CE7800FFE46B /* TextSubView.swift in Sources */,
 				0B1C50C9292F749C00BAFE9F /* DetailedRecipeVC.swift in Sources */,
+				0BEC6A2029812C14000DFC04 /* NetworkRequests.swift in Sources */,
 				0BB7747E29233FD9001F30C6 /* RecipeApp.xcdatamodeld in Sources */,
 				0BBA78352938915700CF3827 /* InnerCategoryCollectionViewCell.swift in Sources */,
+				0BEC6A15297D9460000DFC04 /* ToBuyListItem+CoreDataClass.swift in Sources */,
+				0BEC6A08297C3B8C000DFC04 /* SimpleModel.swift in Sources */,
 				0BDFE0342926B7AD0085CEE5 /* TabBarVC.swift in Sources */,
 				0B271BF429269736000AAB22 /* FavoritesCollectionVC.swift in Sources */,
+				0BEC6A06297C0070000DFC04 /* ShoppingListTableViewCell.swift in Sources */,
 				0BDFE0362926BFEC0085CEE5 /* UIColorExtention.swift in Sources */,
 				0BB3C22529339C9A00FFE46B /* IngredientsSudCViewCell.swift in Sources */,
 				0BD6BF9D292E8E1300B03182 /* RecipeStr.swift in Sources */,

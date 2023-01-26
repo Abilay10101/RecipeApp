@@ -8,6 +8,6 @@
 import Foundation
 
 struct RecipeStr {
-    let image: String
-    let name: String?
+    var image: String
+    var name: String?
 }

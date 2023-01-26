@@ -13,7 +13,7 @@ class IngredientsSubView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Ингредиенты"
+        label.text = "Ingredients"
         label.textColor = #colorLiteral(red: 0.2454499006, green: 0.2894837558, blue: 0.3496103287, alpha: 1)
         label.font = UIFont(name: "Avenir Next Bold", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,7 @@ class IngredientsSubView: UIView {
         return collectionView
     }()
     
-    let tipsArray = ["2 лаваша" , "300 грамм сыра" , "3 яйца" , "Щепотка соли" , "3 ложки сахара"]
+    var tipsArray = ["2 лаваша" , "300 грамм сыра" , "3 яйца" , "Щепотка соли" , "3 ложки сахара"]
     var tipsCount = 0
     
     override init(frame: CGRect) {

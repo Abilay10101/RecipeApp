@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Alamofire
 
 class DetailedRecipeVC: UIViewController {
+    
+    var testURL2 = "https://api.spoonacular.com/recipes/716429/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97"
+    
+    var apiKey = "c8e8e1e30ba84635af33ced47ffedb97  716429"
     
     var img = UIImage()
     var name = "Ленивые сосичски в лаваше с сыром"
@@ -66,7 +71,12 @@ class DetailedRecipeVC: UIViewController {
     @objc func function2() {
         
     }
-    
+
+    func fetchData () {
+        
+        NetworkRequests.sendRequest(url: testURL2)
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +100,68 @@ class DetailedRecipeVC: UIViewController {
         
         navigationItem.setRightBarButtonItems([barBtn1 , barBtn2], animated: true)
         
+        fetchDataHere()
+        
     }
+    
+    func fetchDataHere() {
+        Alamofire.request(testURL2, method: .get).responseJSON { (response) in
+            let jsonData = response.result.value as! NSDictionary
+            //let singleValue = jsonData[0] as! NSDictionary
+            let name = jsonData["title"] as! String
+            let imgStr = jsonData["image"] as! String
+            
+            let readyInMinutes = jsonData["readyInMinutes"] as! Int
+            let servings = jsonData["servings"] as! Int
+            let healthScore = jsonData["healthScore"] as! Int
+            let vegan = jsonData["vegan"] as! Bool
+            
+            let summary = jsonData["summary"] as! String
+            
+            var ingredientsArr = [String]()
+            
+            let extendedIngredients = jsonData["extendedIngredients"] as! NSArray
+            
+            for i in 0..<extendedIngredients.count {
+                let oneIng = extendedIngredients[i] as! NSDictionary
+                let name = oneIng["name"] as! String
+                let amount = oneIng["amount"] as! Float
+                ingredientsArr.append("\(name), \(amount)")
+            }
+            
+            self.nameLabel.text = name
+            
+            DispatchQueue.global().async {
+                guard let imageUrl = URL(string: imgStr) else { return }
+                guard let imageData = try? Data(contentsOf: imageUrl) else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                }
+            }
+            
+            self.subView1.tipsArray[0] = "\(readyInMinutes) min of cooking"
+            self.subView1.tipsArray[1] = "\(servings) servings"
+            self.subView1.tipsArray[2] = "\(healthScore) health score"
+            
+            if vegan {
+                self.subView1.tipsArray[3] = "vegan"
+            } else {
+                self.subView1.tipsArray[3] = "not vegan"
+            }
+            
+            self.subView1.collectionView.reloadData()
+            
+            self.textSubView.textView.text = summary
+            
+            self.ingredientsView.tipsArray = ingredientsArr
+            self.ingredientsView.collectionView.reloadData()
+            
+            print(name)
+        }
+    }
+    
+    
     
     func setupView () {
         
@@ -118,7 +189,7 @@ class DetailedRecipeVC: UIViewController {
         view.backgroundColor = .systemBackground
         
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(boxView.snp.top)
+            make.top.equalTo(boxView.snp.top).offset(-50)
             make.centerX.equalToSuperview()
             make.height.equalTo( boxView.frame.width / 1.5)
             make.width.equalTo(boxView.frame.width)

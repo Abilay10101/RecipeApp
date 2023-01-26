@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
@@ -15,20 +16,41 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     let searchController = UISearchController(searchResultsController: nil)
     
-    let arrTest = [RecipeStr(image: "meme1", name: "meme1"), RecipeStr(image: "meme2", name: "meme2"), RecipeStr(image: "meme3", name: "meme3")]
+    var arrTest = [RecipeStr(image: "", name: "meme1"),
+                   RecipeStr(image: "", name: "meme2"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3"),
+                   RecipeStr(image: "", name: "meme3")
+    ]
     var filteredData = [RecipeStr]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         filteredData = arrTest
 
         self.collectionView!.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        title = "Recipes"
+        title = "15 Random Recipes"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
         configureSearchController()
+        
+        
+        //parseRandomRecipes()
+        
     }
     
     init() {
@@ -92,6 +114,35 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
         let detailVC = DetailedRecipeVC()
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    //MARK: - Randomizer
+    
+    var randNum = [Int]()
+    
+    func randFunc () {
+        for _ in 0..<15 {
+            randNum.append(Int.random(in: 1...1000))
+        }
+    }
+    
+    func parseRandomRecipes() {
+        randFunc()
+        for i in 0..<15 {
+            Alamofire.request("https://api.spoonacular.com/recipes/\(randNum[i])/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97", method: .get).responseJSON { (response) in
+                let jsonData = response.result.value as! NSDictionary
+                print(self.randNum[i])
+                
+                let name = jsonData["title"] as! String
+                //let imgStr = jsonData["image"] as! String
+                
+                self.filteredData[i].name = name
+                //self.arrTest[i].image = imgStr
+                self.collectionView.reloadData()
+            }
+        }
+        
+    }
+    
     
 }
 
