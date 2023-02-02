@@ -49,7 +49,7 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
         configureSearchController()
         
         
-        //parseRandomRecipes()
+        parseRandomRecipes()
         
     }
     
@@ -112,13 +112,14 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailedRecipeVC()
-        detailVC.testURL2 = "https://api.spoonacular.com/recipes/\(randNum[indexPath.item])/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97"
+        detailVC.testURL2 = "https://api.spoonacular.com/recipes/\(idArr[indexPath.item])/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
     //MARK: - Randomizer
     
     var randNum = [Int]()
+    var idArr = [Int]()
     
     func randFunc () {
         for _ in 0..<15 {
@@ -127,17 +128,19 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     }
     
     func parseRandomRecipes() {
-        randFunc()
         for i in 0..<15 {
-            Alamofire.request("https://api.spoonacular.com/recipes/\(randNum[i])/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97", method: .get).responseJSON { (response) in
-                let jsonData = response.result.value as! NSDictionary
-                print(self.randNum[i])
+            Alamofire.request("https://api.spoonacular.com/recipes/random?apiKey=f838e6d2bf2f41e88328e0582180d430", method: .get).responseJSON { (response) in
+                let jsonDict = response.result.value as! NSDictionary
+                let jsonData1 = jsonDict["recipes"] as! NSArray
+                let jsonData = jsonData1[0] as! NSDictionary
                 
-                let name = jsonData["title"] as! String
-                let imgStr = jsonData["image"] as! String
+                let name = jsonData["title"] as? String
+                let imgStr = jsonData["image"] as? String
+                let id = jsonData["id"] as! Int
+                self.idArr.append(id)
                 
-                self.filteredData[i].name = name
-                self.arrTest[i].image = imgStr
+                self.filteredData[i].name = name ?? "none"
+                self.filteredData[i].image = imgStr ?? ""
                 self.collectionView.reloadData()
             }
         }

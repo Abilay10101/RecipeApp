@@ -6,16 +6,18 @@
 //
 
 import UIKit
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
 class InnerCategoryCollectiovVC: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
+    var textURL = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef&number=10&apiKey=f838e6d2bf2f41e88328e0582180d430"
     let cellId = "cellId"
     let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     let searchController = UISearchController(searchResultsController: nil)
     
-    let arrTest = [RecipeStr(image: "meme1", name: "meme1"), RecipeStr(image: "meme2", name: "meme2"), RecipeStr(image: "meme3", name: "meme3")]
+    let arrTest = [RecipeStr]()
     var filteredData = [RecipeStr]()
 
     override func viewDidLoad() {
@@ -27,6 +29,29 @@ class InnerCategoryCollectiovVC: UICollectionViewController , UICollectionViewDe
         title = "Recipes"
         
         configureSearchController()
+        parseCategoreRecipes()
+    }
+    
+    var idArr = [Int]()
+    
+    func parseCategoreRecipes () {
+        Alamofire.request(textURL, method: .get).responseJSON { (response) in
+            
+            let jsonData = response.result.value as! NSArray
+            
+            for i in 0..<jsonData.count {
+                let singeElement = jsonData[i] as! NSDictionary
+                
+                let name = singeElement["title"] as! String
+                let imgStr = singeElement["image"] as! String
+                let id = singeElement["id"] as! Int
+                self.idArr.append(id)
+                
+                self.filteredData.append(RecipeStr(image: imgStr, name: name))
+                self.collectionView.reloadData()
+            }
+            
+        }
     }
     
     init() {
@@ -88,6 +113,7 @@ class InnerCategoryCollectiovVC: UICollectionViewController , UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailedRecipeVC()
+        detailVC.testURL2 = "https://api.spoonacular.com/recipes/\(idArr[indexPath.item])/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
         navigationController?.pushViewController(detailVC, animated: true)
     }
 

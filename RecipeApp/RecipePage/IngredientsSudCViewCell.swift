@@ -8,6 +8,9 @@
 import UIKit
 
 class IngredientsSudCViewCell: UICollectionViewCell {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let percentLabel: UILabel = {
         let label = UILabel()
         label.text = "10%"
@@ -21,15 +24,21 @@ class IngredientsSudCViewCell: UICollectionViewCell {
     let btnAdd: UIButton = {
         var btn = UIButton()
         btn.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
+        btn.addTarget(IngredientsSudCViewCell.self , action: #selector(buttonFunc), for: .touchUpInside)
         btn.tintColor = .gray
         return btn
     }()
+    
+    @objc func buttonFunc () {
+        btnAdd.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+        
+    }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
                 layer.borderWidth = 3
-                layer.borderColor = #colorLiteral(red: 0.639077723, green: 0.2492567599, blue: 0.6254395843, alpha: 1)
+                layer.borderColor = UIColor.tabBarItemAccent.cgColor
             } else {
                 layer.borderWidth = 0
             }

@@ -10,7 +10,8 @@ import Alamofire
 
 class DetailedRecipeVC: UIViewController {
     
-    var testURL2 = "https://api.spoonacular.com/recipes/716429/information?apiKey=c8e8e1e30ba84635af33ced47ffedb97"
+    var testURL2 = "https://api.spoonacular.com/recipes/716429/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
+    //var testURL3 = "https://api.spoonacular.com/food/ingredients/search?number=10?apiKey=68ed6fc20ed34f96bf5ccf91c1d73e9a"
     
     var apiKey = "c8e8e1e30ba84635af33ced47ffedb97  716429"
     
@@ -93,7 +94,7 @@ class DetailedRecipeVC: UIViewController {
         }()
         
         navigationItem.setRightBarButtonItems([barBtn1 , barBtn2], animated: true)
-        
+
         fetchDataHere()
         
     }

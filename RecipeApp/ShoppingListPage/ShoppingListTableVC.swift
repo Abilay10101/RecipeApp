@@ -11,7 +11,7 @@ class ShoppingListTableVC: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var cellId = "Idshka"
-    private var models = [ToBuyListItem]()
+    var models = [ToBuyListItem]()
     
 
     // MARK: - CoreData

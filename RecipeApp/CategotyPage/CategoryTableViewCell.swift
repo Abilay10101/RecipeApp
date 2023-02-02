@@ -9,11 +9,11 @@ import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
     
-    let imageView1 : UIImageView = {
-        var imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        imageView.backgroundColor = .red
-        return imageView
+    let label : UILabel = {
+        var label = UILabel()
+        label.font = UIFont(name: "Avenir Next Bold", size: 40)
+        label.adjustsFontSizeToFitWidth = true
+        return label
     }()
     
     let nameLabel : UILabel = {
@@ -46,20 +46,20 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func setupViews () {
-        imageView1.layer.cornerRadius = 50
-        addSubview(imageView1)
+        
+        addSubview(label)
         addSubview(nameLabel)
     }
     func setupConstraints() {
         
-        imageView1.snp.makeConstraints { make in
+        label.snp.makeConstraints { make in
             make.left.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-10)
             make.width.equalTo(contentView.frame.height )
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.left.equalTo(imageView1.snp.right).offset(10)
+            make.left.equalTo(label.snp.right).offset(5)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview()
             make.height.equalTo(40)

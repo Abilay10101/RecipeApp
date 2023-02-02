@@ -10,6 +10,19 @@ import UIKit
 class CategoryTableVC: UITableViewController {
 
     var cellId = "cellID"
+    var catArr = [CategoriesStr(name: "Beef", imgStr: "🍖"),
+                  CategoriesStr(name: "Steaks", imgStr: "🥩"),
+                  CategoriesStr(name: "Chicken breasts", imgStr: "🍗"),
+                  CategoriesStr(name: "Live lobster", imgStr: "🦞"),
+                  CategoriesStr(name: "Cheese", imgStr: "🧀"),
+                  CategoriesStr(name: "Spaghetti", imgStr: "🍝"),
+                  CategoriesStr(name: "Ramen noodles", imgStr: "🥡"),
+                  CategoriesStr(name: "Rice", imgStr: "🍚"),
+                  CategoriesStr(name: "Mushroom", imgStr: "🍄"),
+                  CategoriesStr(name: "Potatoes", imgStr: "🥔"),
+                  CategoriesStr(name: "Coffee", imgStr: "☕️"),
+                  CategoriesStr(name: "Milk", imgStr: "🥛")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +49,7 @@ class CategoryTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return catArr.count
     }
     
     //MARK: - TableView Delegate
@@ -46,9 +59,11 @@ class CategoryTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let catEl = catArr[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CategoryTableViewCell
+        cell.label.text = catEl.imgStr
+        cell.nameLabel.text = catEl.name
         
-        cell.imageView1.image = UIImage(named: "meme1")
         //cell.nameLabel.text = ""
         
         
@@ -57,6 +72,7 @@ class CategoryTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let innC = InnerCategoryCollectiovVC()
+        innC.textURL = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(catArr[indexPath.row].name.lowercased())&number=10&apiKey=f838e6d2bf2f41e88328e0582180d430"
         navigationController?.pushViewController(innC, animated: true)
     }
     
