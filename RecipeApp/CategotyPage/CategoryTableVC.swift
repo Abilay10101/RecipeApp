@@ -72,7 +72,7 @@ class CategoryTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let innC = InnerCategoryCollectiovVC()
-        innC.textURL = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(catArr[indexPath.row].name.lowercased())&number=10&apiKey=f838e6d2bf2f41e88328e0582180d430"
+        innC.textURL = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(catArr[indexPath.row].name.lowercased())&number=100&apiKey=f838e6d2bf2f41e88328e0582180d430"
         navigationController?.pushViewController(innC, animated: true)
     }
     
