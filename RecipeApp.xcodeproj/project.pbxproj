@@ -75,6 +75,7 @@
 		0BFB4DB229841D880056EE94 /* CategoriesStr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesStr.swift; sourceTree = "<group>"; };
 		0BFB4DB5298C446E0056EE94 /* FavoritesDat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoritesDat+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		0BFB4DB6298C446E0056EE94 /* FavoritesDat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoritesDat+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0BFB4DB9298F82550056EE94 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		16C1F0906411488EB95C252F /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
 		86D8571FD17C4B76FD733A97 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DBDA506360254E0EAEB7373D /* Pods_RecipeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +143,7 @@
 		0BB7746729233FD9001F30C6 = {
 			isa = PBXGroup;
 			children = (
+				0BFB4DB9298F82550056EE94 /* README.md */,
 				0BB7747229233FD9001F30C6 /* RecipeApp */,
 				0BB7747129233FD9001F30C6 /* Products */,
 				2361C0FD7AD877FED143E423 /* Pods */,
