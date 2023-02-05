@@ -7,13 +7,34 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let addElementToCoreDataArray = Notification.Name("AddElementToCoreDataArray")
+}
+
 class ShoppingListTableVC: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var cellId = "Idshka"
     var models = [ToBuyListItem]()
     
-
+    func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAddElementNotification), name: .addElementToCoreDataArray, object: nil)
+    }
+    
+    @objc func handleAddElementNotification(notification: Notification) {
+        if let element = notification.userInfo?["element"] as? Any {
+            let newItem = ToBuyListItem(context: context)
+            newItem.name = element as? String
+            newItem.imgStr = "chch1"
+            
+            do {
+                try context.save()
+                getAllItems()
+            }
+            catch {}
+        }
+    }
+    
     // MARK: - CoreData
     
     func getAllItems() {
@@ -72,7 +93,7 @@ class ShoppingListTableVC: UITableViewController {
         tableView.register(ShoppingListTableViewCell.self, forCellReuseIdentifier: cellId)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        registerForNotifications()
         
     }
     

@@ -121,12 +121,6 @@ class RecipesCollectionVC: UICollectionViewController, UICollectionViewDelegateF
     var randNum = [Int]()
     var idArr = [Int]()
     
-    func randFunc () {
-        for _ in 0..<15 {
-            randNum.append(Int.random(in: 1...1000))
-        }
-    }
-    
     func parseRandomRecipes() {
         for i in 0..<15 {
             Alamofire.request("https://api.spoonacular.com/recipes/random?apiKey=f838e6d2bf2f41e88328e0582180d430", method: .get).responseJSON { (response) in

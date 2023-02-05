@@ -19,7 +19,8 @@ class CategoryTableViewCell: UITableViewCell {
     let nameLabel : UILabel = {
         var label = UILabel()
         label.text = "Breakfast"
-        label.textColor = UIColor.tabBarItemAccent
+        //label.textColor = UIColor.tabBarItemAccent
+        label.textColor = .black
         label.font = UIFont(name: "Avenir Next Bold", size: 20)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7

@@ -11,7 +11,6 @@ import Alamofire
 class DetailedRecipeVC: UIViewController {
     
     var testURL2 = "https://api.spoonacular.com/recipes/716429/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
-    //var testURL3 = "https://api.spoonacular.com/food/ingredients/search?number=10?apiKey=68ed6fc20ed34f96bf5ccf91c1d73e9a"
     
     var apiKey = "c8e8e1e30ba84635af33ced47ffedb97  716429"
     
@@ -65,11 +64,26 @@ class DetailedRecipeVC: UIViewController {
     
     
     @objc func function1 () {
-        //barBtn2.image = UIImage(systemName: "star.fill")
-        print("wow")
+        let shareController = UIActivityViewController(activityItems: [img,name], applicationActivities: nil)
+        shareController.completionWithItemsHandler = { _, bool, _, _ in
+            if bool {
+                print("Успешно!")
+            }
+        }
+        present(shareController, animated: true, completion: nil)
     }
     
     @objc func function2() {
+        var id = Int()
+        let newArr = testURL2.split(separator: "/")
+        for i in 0..<newArr.count {
+            if String(newArr[i]).isNumber {
+                //print(newArr[i])
+                id = Int(newArr[i])!
+            }
+        }
+        
+        NotificationCenter.default.post(name: .addElementToCoreDataArray2, object: nil, userInfo: ["element": Int64(id) as Any])
         
     }
 
@@ -223,4 +237,12 @@ class DetailedRecipeVC: UIViewController {
     
     
 
+}
+
+extension String {
+    var isNumber: Bool {
+        return self.range(
+            of: "^[0-9]*$", // 1
+            options: .regularExpression) != nil
+    }
 }

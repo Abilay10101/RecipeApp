@@ -6,22 +6,34 @@
 //
 
 import UIKit
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
+extension Notification.Name {
+    static let addElementToCoreDataArray2 = Notification.Name("AddElementToCoreDataArray2")
+}
+
 class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelegateFlowLayout {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let cellId = "cellId"
     let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     let searchController = UISearchController(searchResultsController: nil)
     
-    let arrTest = [RecipeStr(image: "meme1", name: "meme1"), RecipeStr(image: "meme2", name: "meme2"), RecipeStr(image: "meme3", name: "meme3")]
+    let arrTest = [RecipeStr]()
     var filteredData = [RecipeStr]()
+    var models = [FavoritesDat]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        registerForNotifications()
+        
         filteredData = arrTest
+        
+        //clearFunc()
 
         self.collectionView!.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         title = "Favorites"
@@ -37,6 +49,79 @@ class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelega
         navigationItem.setRightBarButtonItems([barBtn2], animated: true)
         
         configureSearchController()
+        
+        
+        
+        getAllItems()
+    }
+    
+    func clearFunc() {
+        
+        do {
+            models = try context.fetch(FavoritesDat.fetchRequest())
+            for i in 0..<models.count {
+                print(models[i].id)
+            }
+        }
+        catch {}
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            
+            for obj in models {
+                context.delete(obj)
+            }
+            
+            appDelegate.saveContext()
+        }
+        models.removeAll()
+    }
+    
+    func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAddElementNotification2), name: .addElementToCoreDataArray2, object: nil)
+    }
+    
+    @objc func handleAddElementNotification2(notification: Notification) {
+        if let element = notification.userInfo?["element"] as? Any {
+            let newItem = FavoritesDat(context: context)
+            newItem.id = element as! Int64
+            print(newItem.id)
+            do {
+                try context.save()
+                getAllItems()
+            }
+            catch {}
+        }
+    }
+    
+    func getAllItems() {
+        do {
+            models = try context.fetch(FavoritesDat.fetchRequest())
+            fetchFavoriteData()
+        }
+        catch {
+            //error
+        }
+    }
+    
+    func fetchFavoriteData () {
+        
+        if models.count > 0 {
+            for i in 0..<models.count {
+                let url = "https://api.spoonacular.com/recipes/\(models[i].id)/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
+                Alamofire.request(url, method: .get).responseJSON { (response) in
+                    //print(self.models[i].id)
+                    let jsonData = response.result.value as! NSDictionary
+                    let name = jsonData["title"] as? String
+                    let imgStr = jsonData["image"] as? String
+                    
+                    self.filteredData.append(RecipeStr(image: imgStr ?? "", name: name))
+                    
+                    self.collectionView.reloadData()
+                }
+            }
+
+        }
+        
     }
     
     @objc func function2 () {
@@ -104,6 +189,7 @@ class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailedRecipeVC()
+        detailVC.testURL2 = "https://api.spoonacular.com/recipes/\(models[indexPath.item].id)/information?apiKey=f838e6d2bf2f41e88328e0582180d430"
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }

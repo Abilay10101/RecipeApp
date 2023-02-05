@@ -9,7 +9,9 @@ import UIKit
 
 class IngredientsSudCViewCell: UICollectionViewCell {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    func addElementToCoreDataArray(element: Any) {
+            NotificationCenter.default.post(name: .addElementToCoreDataArray, object: nil, userInfo: ["element": element])
+    }
     
     let percentLabel: UILabel = {
         let label = UILabel()
@@ -24,15 +26,14 @@ class IngredientsSudCViewCell: UICollectionViewCell {
     let btnAdd: UIButton = {
         var btn = UIButton()
         btn.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
-        btn.addTarget(IngredientsSudCViewCell.self , action: #selector(buttonFunc), for: .touchUpInside)
+        //btn.addTarget(IngredientsSudCViewCell.self, action: #selector(bbb), for: .touchUpInside)
         btn.tintColor = .gray
         return btn
     }()
     
-    @objc func buttonFunc () {
-        btnAdd.setImage(UIImage(systemName: "cart.fill"), for: .normal)
-        
-    }
+    /*@objc func bbb () {
+        btnAdd.setImage(UIImage(systemName: "cart"), for: .normal)
+    }*/
     
     override var isSelected: Bool {
         didSet {
