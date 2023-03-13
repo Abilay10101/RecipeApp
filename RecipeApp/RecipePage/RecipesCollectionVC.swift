@@ -1,9 +1,3 @@
-//
-//  RecipesCollectionVC.swift
-//  RecipeApp
-//
-//  Created by Arip Khozhbanov on 17.11.2022.
-//
 
 import UIKit
 import Alamofire

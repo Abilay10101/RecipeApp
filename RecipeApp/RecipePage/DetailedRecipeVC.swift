@@ -1,9 +1,3 @@
-//
-//  DetailedRecipeVC.swift
-//  RecipeApp
-//
-//  Created by Arip Khozhbanov on 24.11.2022.
-//
 
 import UIKit
 import Alamofire
@@ -116,7 +110,6 @@ class DetailedRecipeVC: UIViewController {
     func fetchDataHere() {
         Alamofire.request(testURL2, method: .get).responseJSON { (response) in
             let jsonData = response.result.value as! NSDictionary
-            //let singleValue = jsonData[0] as! NSDictionary
             let name = jsonData["title"] as! String
             let imgStr = jsonData["image"] as! String
             

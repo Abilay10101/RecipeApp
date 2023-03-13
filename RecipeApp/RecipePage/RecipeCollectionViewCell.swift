@@ -1,9 +1,3 @@
-//
-//  RecipeCollectionViewCell.swift
-//  RecipeApp
-//
-//  Created by Arip Khozhbanov on 22.11.2022.
-//
 
 import UIKit
 import SnapKit
