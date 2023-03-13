@@ -42,6 +42,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B162FB429BF976500F7B0B9 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		0B162FB529BF976500F7B0B9 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		0B162FB629BF976500F7B0B9 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		0B1C50C8292F749C00BAFE9F /* DetailedRecipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRecipeVC.swift; sourceTree = "<group>"; };
 		0B271BE329269597000AAB22 /* RecipesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCollectionVC.swift; sourceTree = "<group>"; };
 		0B271BE729269627000AAB22 /* CategoryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableVC.swift; sourceTree = "<group>"; };
@@ -93,6 +96,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B162FB329BF96D300F7B0B9 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				0B162FB729BF978200F7B0B9 /* Fonts */,
+				0BB7748129233FDA001F30C6 /* LaunchScreen.storyboard */,
+				0BB7747F29233FDA001F30C6 /* Assets.xcassets */,
+				0BB7747C29233FD9001F30C6 /* RecipeApp.xcdatamodeld */,
+				0BB7748429233FDA001F30C6 /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		0B162FB729BF978200F7B0B9 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0B162FB629BF976500F7B0B9 /* Poppins-Bold.ttf */,
+				0B162FB529BF976500F7B0B9 /* Poppins-Regular.ttf */,
+				0B162FB429BF976500F7B0B9 /* Poppins-SemiBold.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		0B271BE6292695C9000AAB22 /* RecipePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,13 +187,11 @@
 		0BB7747229233FD9001F30C6 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				0B162FB329BF96D300F7B0B9 /* SupportingFiles */,
 				0BEC6A12297D93CF000DFC04 /* ToBuyListItem */,
 				0BFB4DB4298C43F50056EE94 /* FavoriteDat */,
 				0BB7747329233FD9001F30C6 /* AppDelegate.swift */,
 				0BB7747529233FD9001F30C6 /* SceneDelegate.swift */,
-				0BB7747F29233FDA001F30C6 /* Assets.xcassets */,
-				0BB7747C29233FD9001F30C6 /* RecipeApp.xcdatamodeld */,
-				0BB7748129233FDA001F30C6 /* LaunchScreen.storyboard */,
 				0BDFE0332926B7AD0085CEE5 /* TabBarVC.swift */,
 				0BDFE0352926BFEC0085CEE5 /* UIColorExtention.swift */,
 				0BEC6A1F29812C14000DFC04 /* NetworkRequests.swift */,
@@ -176,7 +199,6 @@
 				0B271BE92926962F000AAB22 /* CategotyPage */,
 				0B271BEA292696AB000AAB22 /* ShoppingListPage */,
 				0B271BF22926970D000AAB22 /* FavoritesPage */,
-				0BB7748429233FDA001F30C6 /* Info.plist */,
 			);
 			path = RecipeApp;
 			sourceTree = "<group>";
