@@ -15,5 +15,11 @@ final class MainViewController: UIViewController {
         label.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        let recipes = APIClient.shared.getRecipes()
+        
+        recipes.forEach {
+            print($0.title)
+        }
     }
 }
