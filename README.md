@@ -1,4 +1,4 @@
-![](icon.png)!{:height="36px" width="36px"}
+![](icon.png){:height="36px" width="36px"}
 #  RecipeApp
 
 Your favorite recipes are now in a new mobile application. 
