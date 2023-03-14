@@ -11,7 +11,7 @@ final class APIClient {
     static let shared = APIClient()
     private init() {}
     
-    func getRecipes() -> [RecipeStruct] {
-        Bundle.main.decode([RecipeStruct].self, from: "Recipes.json")
+    func getRecipes() -> [Recipe] {
+        Bundle.main.decode([Recipe].self, from: "Recipes.json")
     }
 }

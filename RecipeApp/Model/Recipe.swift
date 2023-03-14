@@ -1,6 +1,6 @@
 import Foundation
 
-struct RecipeStruct: Codable {
+struct Recipe: Codable, Hashable {
     let id: Int
     let title: String
     let image: String
