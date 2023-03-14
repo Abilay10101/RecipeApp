@@ -17,7 +17,7 @@ class TabBarVC: UITabBarController {
     
     private func generateTabBar () {
         
-        let recipeVC = RecipesCollectionVC()
+        let recipeVC = MainViewController()
         let categoryVC = CategoryTableVC()
         let shoppingListVC = ShoppingListTableVC()
         let favoritesVC = FavoritesCollectionVC()
