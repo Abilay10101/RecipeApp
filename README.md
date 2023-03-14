@@ -1,4 +1,5 @@
-![](icon.png){width=100}.
+![](icon.png)
+<img src="icon.png" width="100" height="100">
 #  RecipeApp
 
 Your favorite recipes are now in a new mobile application. 
