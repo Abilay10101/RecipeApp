@@ -1,5 +1,4 @@
-<img src="https://github.com/Abilay10101/RecipeApp/blob/main/icon.png" alt="drawing" width="200"/>
-
+![](icon.png)
 #  RecipeApp
 
 Your favorite recipes are now in a new mobile application. 
@@ -24,4 +23,4 @@ Your favorite recipes are now in a new mobile application.
 
 ## Screenshots
 
-<img src="https://github.com/Abilay10101/RecipeApp/blob/main/img1.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/RecipeApp/blob/main/img2.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/RecipeApp/blob/main/img3.png" alt="drawing" width="200"/><img src="https://github.com/Abilay10101/RecipeApp/blob/main/img4.png" alt="drawing" width="200"/><img src="https://github.com/Abilay10101/RecipeApp/blob/main/img5.png" alt="drawing" width="200"/><img src="https://github.com/Abilay10101/RecipeApp/blob/main/img6.png" alt="drawing" width="200"/>
+![](img1.png)![](img2.png)![](img3.png)![](img4.png)![](img4.png)![](img5.png)![](img6.png)
