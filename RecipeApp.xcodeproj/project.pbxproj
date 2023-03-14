@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04383A1A29C0319C00747361 /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04383A1929C0319C00747361 /* AddRecipeViewController.swift */; };
 		0B1C50C9292F749C00BAFE9F /* DetailedRecipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C50C8292F749C00BAFE9F /* DetailedRecipeVC.swift */; };
 		0B271BE429269597000AAB22 /* RecipesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BE329269597000AAB22 /* RecipesCollectionVC.swift */; };
 		0B271BE829269627000AAB22 /* CategoryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B271BE729269627000AAB22 /* CategoryTableVC.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04383A1929C0319C00747361 /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		0B162FB429BF976500F7B0B9 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		0B162FB529BF976500F7B0B9 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		0B162FB629BF976500F7B0B9 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04383A1829C0314800747361 /* AddRecipePage */ = {
+			isa = PBXGroup;
+			children = (
+				04383A1929C0319C00747361 /* AddRecipeViewController.swift */,
+			);
+			path = AddRecipePage;
+			sourceTree = "<group>";
+		};
 		0B162FB329BF96D300F7B0B9 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +197,7 @@
 		0BB7747229233FD9001F30C6 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				04383A1829C0314800747361 /* AddRecipePage */,
 				0B162FB329BF96D300F7B0B9 /* SupportingFiles */,
 				0BEC6A12297D93CF000DFC04 /* ToBuyListItem */,
 				0BFB4DB4298C43F50056EE94 /* FavoriteDat */,
@@ -364,6 +375,7 @@
 				0BB3C221293376D100FFE46B /* SubView1CollectionViewCell.swift in Sources */,
 				0BFB4DB8298C446E0056EE94 /* FavoritesDat+CoreDataProperties.swift in Sources */,
 				0BBA78332938913800CF3827 /* InnerCategoryCollectiovVC.swift in Sources */,
+				04383A1A29C0319C00747361 /* AddRecipeViewController.swift in Sources */,
 				0BEC6A16297D9460000DFC04 /* ToBuyListItem+CoreDataProperties.swift in Sources */,
 				0BB3C21F2933746E00FFE46B /* SubView1.swift in Sources */,
 				0BB3C2272933CE7800FFE46B /* TextSubView.swift in Sources */,
