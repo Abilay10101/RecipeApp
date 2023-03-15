@@ -9,6 +9,7 @@ class CreateRecipeViewController: UIViewController {
     var productImageView: UIImageView!
     var nameTF: UITextField!
     var servesView: UIView!
+    var cookTimeView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ class CreateRecipeViewController: UIViewController {
         
         productImageView = UIImageView()
         productImageView.translatesAutoresizingMaskIntoConstraints = false
-        productImageView.backgroundColor = .systemGray6
+        productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
         view.addSubview(productImageView)
         
@@ -43,10 +44,15 @@ class CreateRecipeViewController: UIViewController {
         
         servesView = UIView()
         servesView.translatesAutoresizingMaskIntoConstraints = false
-        servesView.backgroundColor = UIColor.neutral0
+        servesView.backgroundColor = UIColor.neutral10
         servesView.layer.cornerRadius = 12
         view.addSubview(servesView)
         
+        cookTimeView = UIView()
+        cookTimeView.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeView.backgroundColor = UIColor.neutral10
+        cookTimeView.layer.cornerRadius = 12
+        view.addSubview(cookTimeView)
     }
     
     func setLayout() {
@@ -73,6 +79,13 @@ class CreateRecipeViewController: UIViewController {
         
         servesView.snp.makeConstraints { make in
             make.top.equalTo(nameTF.snp.bottom).inset(-15.6)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(productImageView.snp.leading)
+            make.height.equalTo(60)
+        }
+        
+        cookTimeView.snp.makeConstraints { make in
+            make.top.equalTo(servesView.snp.bottom).inset(-15.6)
             make.centerX.equalToSuperview()
             make.leading.equalTo(productImageView.snp.leading)
             make.height.equalTo(60)
