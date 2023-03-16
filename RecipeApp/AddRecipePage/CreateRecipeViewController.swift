@@ -15,6 +15,8 @@ class CreateRecipeViewController: UIViewController {
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
     var plusIngerientImageView: UIImageView!
+    var addLabel: UILabel!
+    var createRecipeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +99,21 @@ class CreateRecipeViewController: UIViewController {
         plusIngerientImageView.image = UIImage(named: "Union")
         view.addSubview(plusIngerientImageView)
         
+        addLabel = UILabel()
+        addLabel.translatesAutoresizingMaskIntoConstraints = false
+        addLabel.text = "Add new ingredient"
+        addLabel.font = .poppins(16, weight: .bold)
+        addLabel.textColor = .neutral100
+        view.addSubview(addLabel)
+        
+        createRecipeButton = UIButton(type: .system)
+        createRecipeButton.translatesAutoresizingMaskIntoConstraints = false
+        createRecipeButton.setTitle("Create recipe", for: .normal)
+        createRecipeButton.tintColor = .white
+        createRecipeButton.layer.cornerRadius = 8
+        createRecipeButton.backgroundColor = .primary50
+        view.addSubview(createRecipeButton)
+        
         
     }
     
@@ -166,6 +183,18 @@ class CreateRecipeViewController: UIViewController {
             make.leading.equalTo(productImageView)
             make.height.equalTo(24)
             make.width.equalTo(plusIngerientImageView.snp.height)
+        }
+        
+        addLabel.snp.makeConstraints { make in
+            make.leading.equalTo(plusIngerientImageView.snp.trailing).inset(-8)
+            make.centerY.equalTo(plusIngerientImageView)
+        }
+        
+        createRecipeButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(productImageView)
+            make.height.equalTo(56)
+            make.top.equalTo(addLabel.snp.bottom).inset(-58.2)
         }
         
     }
