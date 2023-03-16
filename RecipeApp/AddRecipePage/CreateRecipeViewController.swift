@@ -10,6 +10,7 @@ class CreateRecipeViewController: UIViewController {
     var nameTF: UITextField!
     var servesView: UIView!
     var cookTimeView: UIView!
+    var ingredientsLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,13 @@ class CreateRecipeViewController: UIViewController {
         cookTimeView.backgroundColor = UIColor.neutral10
         cookTimeView.layer.cornerRadius = 12
         view.addSubview(cookTimeView)
+        
+        ingredientsLabel = UILabel()
+        ingredientsLabel.text = "Ingredients"
+        ingredientsLabel.font = UIFont.poppins(20, weight: PoppinsWeight.bold)
+        ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsLabel.textColor = .neutral100
+        view.addSubview(ingredientsLabel)
     }
     
     func setLayout() {
@@ -89,6 +97,11 @@ class CreateRecipeViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.equalTo(productImageView.snp.leading)
             make.height.equalTo(60)
+        }
+        
+        ingredientsLabel.snp.makeConstraints { make in
+            make.top.equalTo(cookTimeView.snp.bottom).inset(-24.4)
+            make.leading.equalTo(productImageView)
         }
         
     }
