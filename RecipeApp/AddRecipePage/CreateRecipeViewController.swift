@@ -14,6 +14,7 @@ class CreateRecipeViewController: UIViewController {
     var minusImageView: UIImageView!
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
+    var plusIngerientImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +92,12 @@ class CreateRecipeViewController: UIViewController {
         ingredientNameTF.indent(size: 15)
         view.addSubview(ingredientNameTF)
         
+        plusIngerientImageView = UIImageView()
+        plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
+        plusIngerientImageView.image = UIImage(named: "Union")
+        view.addSubview(plusIngerientImageView)
+        
+        
     }
     
     func setLayout() {
@@ -152,6 +159,13 @@ class CreateRecipeViewController: UIViewController {
         minusImageView.snp.makeConstraints { make in
             make.leading.equalTo(ingredientQuantityTF.snp.trailing).inset(-12)
             make.centerY.equalTo(ingredientQuantityTF)
+        }
+        
+        plusIngerientImageView.snp.makeConstraints { make in
+            make.top.equalTo(ingredientQuantityTF.snp.bottom).inset(-19.6)
+            make.leading.equalTo(productImageView)
+            make.height.equalTo(24)
+            make.width.equalTo(plusIngerientImageView.snp.height)
         }
         
     }
