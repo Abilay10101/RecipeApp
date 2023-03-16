@@ -11,6 +11,9 @@ class CreateRecipeViewController: UIViewController {
     var servesView: UIView!
     var cookTimeView: UIView!
     var ingredientsLabel: UILabel!
+    var minusImageView: UIImageView!
+    var ingredientQuantityTF: UITextField!
+    var ingredientNameTF: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +64,33 @@ class CreateRecipeViewController: UIViewController {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         ingredientsLabel.textColor = .neutral100
         view.addSubview(ingredientsLabel)
+        
+        minusImageView = UIImageView()
+        minusImageView.translatesAutoresizingMaskIntoConstraints = false
+        minusImageView.image = UIImage(named: "Minus-Border")
+        view.addSubview(minusImageView)
+        
+        ingredientQuantityTF = UITextField()
+        ingredientQuantityTF.translatesAutoresizingMaskIntoConstraints = false
+        ingredientQuantityTF.layer.borderWidth = 1
+        ingredientQuantityTF.layer.cornerRadius = 10
+        ingredientQuantityTF.layer.borderColor = UIColor.neutral20?.cgColor
+        ingredientQuantityTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
+        ingredientQuantityTF.textColor = UIColor.neutral100
+        ingredientQuantityTF.indent(size: 15)
+        ingredientQuantityTF.keyboardType = .numberPad
+        view.addSubview(ingredientQuantityTF)
+        
+        ingredientNameTF = UITextField()
+        ingredientNameTF.translatesAutoresizingMaskIntoConstraints = false
+        ingredientNameTF.layer.borderWidth = 1
+        ingredientNameTF.layer.cornerRadius = 10
+        ingredientNameTF.layer.borderColor = UIColor.neutral20?.cgColor
+        ingredientNameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
+        ingredientNameTF.textColor = UIColor.neutral100
+        ingredientNameTF.indent(size: 15)
+        view.addSubview(ingredientNameTF)
+        
     }
     
     func setLayout() {
@@ -102,6 +132,26 @@ class CreateRecipeViewController: UIViewController {
         ingredientsLabel.snp.makeConstraints { make in
             make.top.equalTo(cookTimeView.snp.bottom).inset(-24.4)
             make.leading.equalTo(productImageView)
+        }
+        
+        ingredientQuantityTF.snp.makeConstraints { make in
+            make.top.equalTo(ingredientsLabel.snp.bottom).inset(-16)
+            make.trailing.equalToSuperview().inset(68)
+            make.height.equalTo(44)
+            make.width.equalTo(115)
+        }
+        
+        ingredientNameTF.snp.makeConstraints { make in
+            make.centerY.equalTo(ingredientQuantityTF)
+            make.trailing.equalTo(ingredientQuantityTF.snp.leading).inset(-12)
+            make.leading.equalTo(productImageView)
+            make.height.equalTo(44)
+            make.width.equalTo(115)
+        }
+        
+        minusImageView.snp.makeConstraints { make in
+            make.leading.equalTo(ingredientQuantityTF.snp.trailing).inset(-12)
+            make.centerY.equalTo(ingredientQuantityTF)
         }
         
     }
