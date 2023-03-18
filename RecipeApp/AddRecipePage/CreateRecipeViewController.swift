@@ -9,6 +9,10 @@ class CreateRecipeViewController: UIViewController {
     var productImageView: UIImageView!
     var nameTF: UITextField!
     var servesView: UIView!
+    var servesImageView: UIImageView!
+    var servesLabel: UILabel!
+    var servesQuantityLabel: UILabel!
+    var servesArrowImageView: UIImageView!
     var cookTimeView: UIView!
     var ingredientsLabel: UILabel!
     var minusImageView: UIImageView!
@@ -54,6 +58,30 @@ class CreateRecipeViewController: UIViewController {
         servesView.backgroundColor = UIColor.neutral10
         servesView.layer.cornerRadius = 12
         view.addSubview(servesView)
+        
+        servesImageView = UIImageView()
+        servesImageView.translatesAutoresizingMaskIntoConstraints = false
+        servesImageView.image = UIImage(named: "servesQuantityIcon")
+        servesView.addSubview(servesImageView)
+        
+        servesLabel = UILabel()
+        servesLabel.translatesAutoresizingMaskIntoConstraints = false
+        servesLabel.text = "Serves"
+        servesLabel.font = .poppins(16, weight: .bold)
+        servesLabel.textColor = .neutral100
+        servesView.addSubview(servesLabel)
+        
+        servesQuantityLabel = UILabel()
+        servesQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
+        servesQuantityLabel.text = "03"
+        servesQuantityLabel.font = .poppins(14, weight: .regular)
+        servesLabel.textColor = .neutral50
+        servesView.addSubview(servesQuantityLabel)
+        
+        servesArrowImageView = UIImageView()
+        servesArrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        servesArrowImageView.image = UIImage(named: "ArrowRightIcon")
+        servesView.addSubview(servesArrowImageView)
         
         cookTimeView = UIView()
         cookTimeView.translatesAutoresizingMaskIntoConstraints = false
@@ -145,6 +173,28 @@ class CreateRecipeViewController: UIViewController {
             make.leading.equalTo(productImageView.snp.leading)
             make.height.equalTo(60)
         }
+        
+        servesImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(36)
+            make.leading.equalTo(servesView).inset(16)
+            make.centerY.equalToSuperview()
+        }
+        servesLabel.snp.makeConstraints { make in
+            make.leading.equalTo(servesImageView.snp.trailing).inset(-16)
+            make.centerY.equalToSuperview()
+        }
+        
+        servesArrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(24)
+            make.trailing.equalToSuperview().inset(16)
+        }
+        
+        servesQuantityLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(servesArrowImageView.snp.leading).inset(-8)
+        }
+        
         
         cookTimeView.snp.makeConstraints { make in
             make.top.equalTo(servesView.snp.bottom).inset(-15.6)
