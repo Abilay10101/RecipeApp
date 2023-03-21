@@ -21,17 +21,22 @@ class TabBarVC: UITabBarController {
         let categoryVC = CategoryTableVC()
         let shoppingListVC = ShoppingListTableVC()
         let favoritesVC = FavoritesCollectionVC()
+        //for testing CreateRecipePage
+        let createRecipeVC = CreateRecipeViewController()
         
         let recipeNav = UINavigationController(rootViewController: recipeVC)
         let categoryNav = UINavigationController(rootViewController: categoryVC)
         let shoppingListNav = UINavigationController(rootViewController: shoppingListVC)
         let favoritesNav = UINavigationController(rootViewController: favoritesVC)
-        
+        //for testing CreateRecipePage
+        let createRecipe = UINavigationController(rootViewController: createRecipeVC)
         viewControllers = [
             generateVC(recipeNav , "Recipes" , UIImage(systemName: "fork.knife.circle")) ,
             generateVC(categoryNav,  "Category" , UIImage(systemName: "list.dash")) ,
             generateVC(shoppingListNav , "Shopping List", UIImage(systemName: "cart")) ,
-            generateVC(favoritesNav , "Favorites" , UIImage(systemName: "star"))
+            generateVC(favoritesNav , "Favorites" , UIImage(systemName: "star")),
+            //for testing CreateRecipePage
+            generateVC(createRecipe, "Add", UIImage(systemName: "plus"))
         ]
     }
     
