@@ -12,6 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarVC = TabBarVC()
         window?.rootViewController = tabBarVC
+        //window?.backgroundColor = .white
+        //window?.rootViewController = CreateRecipeViewController()
         window?.makeKeyAndVisible()
     }
 
