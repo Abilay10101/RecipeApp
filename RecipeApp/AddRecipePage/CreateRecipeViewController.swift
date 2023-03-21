@@ -14,6 +14,10 @@ class CreateRecipeViewController: UIViewController {
     var servesQuantityLabel: UILabel!
     var servesArrowImageView: UIImageView!
     var cookTimeView: UIView!
+    var cookTimeImageView: UIImageView!
+    var cookTimeLabel: UILabel!
+    var cookTimeDurationLabel: UILabel!
+    var cookTimeArrowImageView: UIImageView!
     var ingredientsLabel: UILabel!
     var minusImageView: UIImageView!
     var ingredientQuantityTF: UITextField!
@@ -75,7 +79,7 @@ class CreateRecipeViewController: UIViewController {
         servesQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
         servesQuantityLabel.text = "03"
         servesQuantityLabel.font = .poppins(14, weight: .regular)
-        servesLabel.textColor = .neutral50
+        servesQuantityLabel.textColor = .neutral50
         servesView.addSubview(servesQuantityLabel)
         
         servesArrowImageView = UIImageView()
@@ -88,6 +92,28 @@ class CreateRecipeViewController: UIViewController {
         cookTimeView.backgroundColor = UIColor.neutral10
         cookTimeView.layer.cornerRadius = 12
         view.addSubview(cookTimeView)
+        
+        cookTimeImageView = UIImageView(image: UIImage(named: "cookTimeIcon"))
+        cookTimeImageView.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeView.addSubview(cookTimeImageView)
+                                        
+        cookTimeLabel = UILabel()
+        cookTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeLabel.text = "Cook time"
+        cookTimeLabel.font = .poppins(16, weight: .bold)
+        cookTimeLabel.textColor = .neutral100
+        cookTimeView.addSubview(cookTimeLabel)
+        
+        cookTimeDurationLabel = UILabel()
+        cookTimeDurationLabel.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeDurationLabel.text = "20 min"
+        cookTimeDurationLabel.font = .poppins(14, weight: .regular)
+        cookTimeDurationLabel.textColor = .neutral50
+        cookTimeView.addSubview(cookTimeDurationLabel)
+        
+        cookTimeArrowImageView = UIImageView(image: UIImage(named: "ArrowRightIcon"))
+        cookTimeArrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeView.addSubview(cookTimeArrowImageView)
         
         ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
@@ -201,6 +227,27 @@ class CreateRecipeViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.equalTo(productImageView.snp.leading)
             make.height.equalTo(60)
+        }
+        
+        cookTimeImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(36)
+            make.leading.equalTo(cookTimeView).inset(16)
+            make.centerY.equalToSuperview()
+        }
+        cookTimeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(cookTimeView.snp.trailing).inset(-16)
+            make.centerY.equalToSuperview()
+        }
+        
+        cookTimeArrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(24)
+            make.trailing.equalToSuperview().inset(16)
+        }
+        
+        cookTimeDurationLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(cookTimeArrowImageView.snp.leading).inset(-8)
         }
         
         ingredientsLabel.snp.makeConstraints { make in
