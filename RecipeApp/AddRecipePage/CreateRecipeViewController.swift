@@ -7,6 +7,7 @@ class CreateRecipeViewController: UIViewController {
     
     var createRecipeLabel: UILabel!
     var productImageView: UIImageView!
+    var editImageView: UIImageView!
     var nameTF: UITextField!
     var servesView: UIView!
     var servesImageView: UIImageView!
@@ -47,6 +48,10 @@ class CreateRecipeViewController: UIViewController {
         productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
         view.addSubview(productImageView)
+        
+        editImageView = UIImageView(image: UIImage(named: "Edit"))
+        editImageView.translatesAutoresizingMaskIntoConstraints = false
+        productImageView.addSubview(editImageView)
         
         nameTF = UITextField()
         nameTF.translatesAutoresizingMaskIntoConstraints = false
@@ -185,6 +190,12 @@ class CreateRecipeViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().inset(16)
             make.height.equalTo(200)
+        }
+        
+        editImageView.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(0)
+            make.width.equalTo(72)
+            make.height.equalTo(80)
         }
         
         nameTF.snp.makeConstraints { make in
