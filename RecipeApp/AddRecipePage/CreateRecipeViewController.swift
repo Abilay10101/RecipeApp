@@ -23,9 +23,6 @@ class CreateRecipeViewController: UIViewController {
     var ingredientsLabel: UILabel!
     var tableViewIngredients: UITableView!
     var numberOfCells = 2
-    var minusImageView: UIImageView!
-    var ingredientQuantityTF: UITextField!
-    var ingredientNameTF: UITextField!
     var plusIngerientImageView: UIImageView!
     var addLabel: UILabel!
     var createRecipeButton: UIButton!
@@ -149,37 +146,11 @@ class CreateRecipeViewController: UIViewController {
         tableViewIngredients.register(UINib(nibName: "IngredientsTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
         tableViewIngredients.delegate = self
         tableViewIngredients.dataSource = self
+        tableViewIngredients.separatorStyle = .none
+        tableViewIngredients.rowHeight = 60
+        tableViewIngredients.backgroundColor = .yellow
         scrollView.addSubview(tableViewIngredients)
-        
-        minusImageView = UIImageView()
-        minusImageView.translatesAutoresizingMaskIntoConstraints = false
-        minusImageView.image = UIImage(named: "Minus-Border")
-        minusImageView.isHidden = true
-        scrollView.addSubview(minusImageView)
-        
-        ingredientQuantityTF = UITextField()
-        ingredientQuantityTF.translatesAutoresizingMaskIntoConstraints = false
-        ingredientQuantityTF.layer.borderWidth = 1
-        ingredientQuantityTF.layer.cornerRadius = 10
-        ingredientQuantityTF.layer.borderColor = UIColor.neutral20?.cgColor
-        ingredientQuantityTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
-        ingredientQuantityTF.textColor = UIColor.neutral100
-        ingredientQuantityTF.indent(size: 15)
-        ingredientQuantityTF.keyboardType = .numberPad
-        ingredientQuantityTF.isHidden = true
-        scrollView.addSubview(ingredientQuantityTF)
-        
-        ingredientNameTF = UITextField()
-        ingredientNameTF.translatesAutoresizingMaskIntoConstraints = false
-        ingredientNameTF.layer.borderWidth = 1
-        ingredientNameTF.layer.cornerRadius = 10
-        ingredientNameTF.layer.borderColor = UIColor.neutral20?.cgColor
-        ingredientNameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
-        ingredientNameTF.textColor = UIColor.neutral100
-        ingredientNameTF.indent(size: 15)
-        ingredientNameTF.isHidden = true
-        scrollView.addSubview(ingredientNameTF)
-        
+                
         plusIngerientImageView = UIImageView()
         plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
         plusIngerientImageView.image = UIImage(named: "Union")
@@ -301,35 +272,14 @@ class CreateRecipeViewController: UIViewController {
         
         tableViewIngredients.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)
-            make.top.equalTo(ingredientsLabel.snp.bottom)
-            make.height.equalTo(60 * numberOfCells)
-        }
-        
-        ingredientQuantityTF.snp.makeConstraints { make in
-            make.top.equalTo(ingredientsLabel.snp.bottom).inset(-16)
-            make.trailing.equalTo(view).inset(68)
-            make.height.equalTo(44)
-            make.width.equalTo(115)
-        }
-        
-        ingredientNameTF.snp.makeConstraints { make in
-            make.centerY.equalTo(ingredientQuantityTF)
-            make.trailing.equalTo(ingredientQuantityTF.snp.leading).inset(-12)
-            make.leading.equalTo(productImageView)
-            make.height.equalTo(44)
-            make.width.equalTo(115)
-        }
-        
-        minusImageView.snp.makeConstraints { make in
-            make.leading.equalTo(ingredientQuantityTF.snp.trailing).inset(-12)
-            make.centerY.equalTo(ingredientQuantityTF)
+            make.top.equalTo(ingredientsLabel.snp.bottom).inset(-8)
+            make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
         }
         
         plusIngerientImageView.snp.makeConstraints { make in
-            make.top.equalTo(ingredientQuantityTF.snp.bottom).inset(-19.6)
+            make.top.equalTo(tableViewIngredients.snp.bottom).inset(-8)
             make.leading.equalTo(productImageView)
-            make.height.equalTo(24)
-            make.width.equalTo(plusIngerientImageView.snp.height)
+            make.height.width.equalTo(24)
         }
         
         addLabel.snp.makeConstraints { make in
