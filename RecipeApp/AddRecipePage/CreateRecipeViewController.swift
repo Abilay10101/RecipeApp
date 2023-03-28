@@ -21,6 +21,8 @@ class CreateRecipeViewController: UIViewController {
     var cookTimeDurationLabel: UILabel!
     var cookTimeArrowImageView: UIImageView!
     var ingredientsLabel: UILabel!
+    var tableViewIngredients: UITableView!
+    var numberOfCells = 2
     var minusImageView: UIImageView!
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
@@ -141,9 +143,18 @@ class CreateRecipeViewController: UIViewController {
         ingredientsLabel.textColor = .neutral100
         scrollView.addSubview(ingredientsLabel)
         
+        tableViewIngredients = UITableView()
+        tableViewIngredients.translatesAutoresizingMaskIntoConstraints = false
+        tableViewIngredients.backgroundColor = .gray
+        tableViewIngredients.register(UINib(nibName: "IngredientsTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
+        tableViewIngredients.delegate = self
+        tableViewIngredients.dataSource = self
+        scrollView.addSubview(tableViewIngredients)
+        
         minusImageView = UIImageView()
         minusImageView.translatesAutoresizingMaskIntoConstraints = false
         minusImageView.image = UIImage(named: "Minus-Border")
+        minusImageView.isHidden = true
         scrollView.addSubview(minusImageView)
         
         ingredientQuantityTF = UITextField()
@@ -155,6 +166,7 @@ class CreateRecipeViewController: UIViewController {
         ingredientQuantityTF.textColor = UIColor.neutral100
         ingredientQuantityTF.indent(size: 15)
         ingredientQuantityTF.keyboardType = .numberPad
+        ingredientQuantityTF.isHidden = true
         scrollView.addSubview(ingredientQuantityTF)
         
         ingredientNameTF = UITextField()
@@ -165,6 +177,7 @@ class CreateRecipeViewController: UIViewController {
         ingredientNameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
         ingredientNameTF.textColor = UIColor.neutral100
         ingredientNameTF.indent(size: 15)
+        ingredientNameTF.isHidden = true
         scrollView.addSubview(ingredientNameTF)
         
         plusIngerientImageView = UIImageView()
@@ -286,6 +299,12 @@ class CreateRecipeViewController: UIViewController {
             make.leading.equalTo(productImageView)
         }
         
+        tableViewIngredients.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(ingredientsLabel.snp.bottom)
+            make.height.equalTo(60 * numberOfCells)
+        }
+        
         ingredientQuantityTF.snp.makeConstraints { make in
             make.top.equalTo(ingredientsLabel.snp.bottom).inset(-16)
             make.trailing.equalTo(view).inset(68)
@@ -327,5 +346,18 @@ class CreateRecipeViewController: UIViewController {
 
         
     }
+    
+}
+
+extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numberOfCells
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
+        return cell
+    }
+    
     
 }
