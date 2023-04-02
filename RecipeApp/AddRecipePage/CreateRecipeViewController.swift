@@ -26,6 +26,8 @@ class CreateRecipeViewController: UIViewController {
     var plusIngerientImageView: UIImageView!
     var addLabel: UILabel!
     var createRecipeButton: UIButton!
+    
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,10 @@ class CreateRecipeViewController: UIViewController {
         editImageView = UIImageView(image: UIImage(named: "Edit"))
         editImageView.translatesAutoresizingMaskIntoConstraints = false
         productImageView.addSubview(editImageView)
+        editImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
+        editImageView.addGestureRecognizer(tapGesture)
+        
         
         nameTF = UITextField()
         nameTF.translatesAutoresizingMaskIntoConstraints = false
@@ -170,6 +176,8 @@ class CreateRecipeViewController: UIViewController {
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50
         scrollView.addSubview(createRecipeButton)
+        
+        imagePicker.delegate = self
         
         
     }
@@ -297,6 +305,11 @@ class CreateRecipeViewController: UIViewController {
         
     }
     
+    @objc func getImage() {
+        print("Should get image")
+        productImageView.backgroundColor = .red
+    }
+    
 }
 
 extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -310,4 +323,10 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
+}
+
+extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+    }
 }
