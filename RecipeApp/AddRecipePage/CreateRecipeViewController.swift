@@ -61,14 +61,18 @@ class CreateRecipeViewController: UIViewController {
         productImageView.translatesAutoresizingMaskIntoConstraints = false
         productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
+//        productImageView.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
+//        productImageView.addGestureRecognizer(tapGesture)
         scrollView.addSubview(productImageView)
         
         editImageView = UIImageView(image: UIImage(named: "Edit"))
         editImageView.translatesAutoresizingMaskIntoConstraints = false
-        productImageView.addSubview(editImageView)
         editImageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
-        editImageView.addGestureRecognizer(tapGesture)
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(getImage2))
+        editImageView.addGestureRecognizer(tapGesture2)
+        productImageView.addSubview(editImageView)
+       
         
         
         nameTF = UITextField()
@@ -178,7 +182,8 @@ class CreateRecipeViewController: UIViewController {
         scrollView.addSubview(createRecipeButton)
         
         imagePicker.delegate = self
-        imagePicker.allowsEditing = true
+//        imagePicker.allowsEditing = true
+//        imagePicker.sourceType = .photoLibrary
         
         
     }
@@ -306,12 +311,10 @@ class CreateRecipeViewController: UIViewController {
         
     }
     
-    @objc func getImage() {
-        imagePicker.sourceType = .photoLibrary
-       //present(imagePicker, animated: true)
-        productImageView.backgroundColor = .red
+    @objc func getImage2() {
+        productImageView.backgroundColor = .yellow
+//             present(imagePicker, animated: true)
     }
-    
 }
 
 extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -329,9 +332,9 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
 
 extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            productImageView.image = pickedImage
-        }
-        dismiss(animated: true)
+//        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//            productImageView.image = pickedImage
+//        }
+//        dismiss(animated: true)
     }
 }
