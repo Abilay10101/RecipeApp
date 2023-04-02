@@ -5,8 +5,10 @@ import SnapKit
 
 class CreateRecipeViewController: UIViewController {
     
+    var scrollView: UIScrollView!
     var createRecipeLabel: UILabel!
     var productImageView: UIImageView!
+    var editImageView: UIImageView!
     var nameTF: UITextField!
     var servesView: UIView!
     var servesImageView: UIImageView!
@@ -19,9 +21,8 @@ class CreateRecipeViewController: UIViewController {
     var cookTimeDurationLabel: UILabel!
     var cookTimeArrowImageView: UIImageView!
     var ingredientsLabel: UILabel!
-    var minusImageView: UIImageView!
-    var ingredientQuantityTF: UITextField!
-    var ingredientNameTF: UITextField!
+    var tableViewIngredients: UITableView!
+    var numberOfCells = 2
     var plusIngerientImageView: UIImageView!
     var addLabel: UILabel!
     var createRecipeButton: UIButton!
@@ -32,21 +33,37 @@ class CreateRecipeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setup()
         setLayout()
-
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY )
     }
     
     func setup() {
+        
+        scrollView = UIScrollView(frame: view.frame)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        view.addSubview(scrollView)
+        
         createRecipeLabel = UILabel()
         createRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
         createRecipeLabel.text = "Create recipe"
         createRecipeLabel.font = UIFont.poppins(24, weight: PoppinsWeight.bold)
-        view.addSubview(createRecipeLabel)
+        scrollView.addSubview(createRecipeLabel)
         
         productImageView = UIImageView()
         productImageView.translatesAutoresizingMaskIntoConstraints = false
         productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
-        view.addSubview(productImageView)
+        scrollView.addSubview(productImageView)
+        
+        editImageView = UIImageView(image: UIImage(named: "Edit"))
+        editImageView.translatesAutoresizingMaskIntoConstraints = false
+        productImageView.addSubview(editImageView)
         
         nameTF = UITextField()
         nameTF.translatesAutoresizingMaskIntoConstraints = false
@@ -56,13 +73,13 @@ class CreateRecipeViewController: UIViewController {
         nameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
         nameTF.textColor = UIColor.neutral100
         nameTF.indent(size: 15)
-        view.addSubview(nameTF)
+        scrollView.addSubview(nameTF)
         
         servesView = UIView()
         servesView.translatesAutoresizingMaskIntoConstraints = false
         servesView.backgroundColor = UIColor.neutral10
         servesView.layer.cornerRadius = 12
-        view.addSubview(servesView)
+        scrollView.addSubview(servesView)
         
         servesImageView = UIImageView()
         servesImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +109,7 @@ class CreateRecipeViewController: UIViewController {
         cookTimeView.translatesAutoresizingMaskIntoConstraints = false
         cookTimeView.backgroundColor = UIColor.neutral10
         cookTimeView.layer.cornerRadius = 12
-        view.addSubview(cookTimeView)
+        scrollView.addSubview(cookTimeView)
         
         cookTimeImageView = UIImageView(image: UIImage(named: "cookTimeIcon"))
         cookTimeImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,45 +138,30 @@ class CreateRecipeViewController: UIViewController {
         ingredientsLabel.font = UIFont.poppins(20, weight: PoppinsWeight.bold)
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         ingredientsLabel.textColor = .neutral100
-        view.addSubview(ingredientsLabel)
+        scrollView.addSubview(ingredientsLabel)
         
-        minusImageView = UIImageView()
-        minusImageView.translatesAutoresizingMaskIntoConstraints = false
-        minusImageView.image = UIImage(named: "Minus-Border")
-        view.addSubview(minusImageView)
-        
-        ingredientQuantityTF = UITextField()
-        ingredientQuantityTF.translatesAutoresizingMaskIntoConstraints = false
-        ingredientQuantityTF.layer.borderWidth = 1
-        ingredientQuantityTF.layer.cornerRadius = 10
-        ingredientQuantityTF.layer.borderColor = UIColor.neutral20?.cgColor
-        ingredientQuantityTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
-        ingredientQuantityTF.textColor = UIColor.neutral100
-        ingredientQuantityTF.indent(size: 15)
-        ingredientQuantityTF.keyboardType = .numberPad
-        view.addSubview(ingredientQuantityTF)
-        
-        ingredientNameTF = UITextField()
-        ingredientNameTF.translatesAutoresizingMaskIntoConstraints = false
-        ingredientNameTF.layer.borderWidth = 1
-        ingredientNameTF.layer.cornerRadius = 10
-        ingredientNameTF.layer.borderColor = UIColor.neutral20?.cgColor
-        ingredientNameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
-        ingredientNameTF.textColor = UIColor.neutral100
-        ingredientNameTF.indent(size: 15)
-        view.addSubview(ingredientNameTF)
-        
+        tableViewIngredients = UITableView()
+        tableViewIngredients.translatesAutoresizingMaskIntoConstraints = false
+        tableViewIngredients.backgroundColor = .gray
+        tableViewIngredients.register(UINib(nibName: "IngredientsTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
+        tableViewIngredients.delegate = self
+        tableViewIngredients.dataSource = self
+        tableViewIngredients.separatorStyle = .none
+        tableViewIngredients.rowHeight = 60
+        tableViewIngredients.backgroundColor = .yellow
+        scrollView.addSubview(tableViewIngredients)
+                
         plusIngerientImageView = UIImageView()
         plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
         plusIngerientImageView.image = UIImage(named: "Union")
-        view.addSubview(plusIngerientImageView)
+        scrollView.addSubview(plusIngerientImageView)
         
         addLabel = UILabel()
         addLabel.translatesAutoresizingMaskIntoConstraints = false
         addLabel.text = "Add new ingredient"
         addLabel.font = .poppins(16, weight: .bold)
         addLabel.textColor = .neutral100
-        view.addSubview(addLabel)
+        scrollView.addSubview(addLabel)
         
         createRecipeButton = UIButton(type: .system)
         createRecipeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -167,24 +169,34 @@ class CreateRecipeViewController: UIViewController {
         createRecipeButton.tintColor = .white
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50
-        view.addSubview(createRecipeButton)
+        scrollView.addSubview(createRecipeButton)
         
         
     }
     
     func setLayout() {
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         createRecipeLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(96)
+            make.top.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(19)
-            make.centerX.equalToSuperview()
+            make.trailing.equalToSuperview().inset(-19)
         }
         
         productImageView.snp.makeConstraints { make in
             make.top.equalTo(createRecipeLabel).inset(44)
-            make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().inset(16)
+            make.trailing.equalTo(view).inset(16)
+            make.leading.equalTo(view).inset(16)
             make.height.equalTo(200)
+        }
+        
+        editImageView.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(0)
+            make.width.equalTo(72)
+            make.height.equalTo(80)
         }
         
         nameTF.snp.makeConstraints { make in
@@ -235,9 +247,11 @@ class CreateRecipeViewController: UIViewController {
             make.leading.equalTo(cookTimeView).inset(16)
             make.centerY.equalToSuperview()
         }
+        
         cookTimeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(cookTimeView.snp.trailing).inset(-16)
+            make.leading.equalTo(cookTimeImageView.snp.trailing).inset(-16)
             make.centerY.equalToSuperview()
+            
         }
         
         cookTimeArrowImageView.snp.makeConstraints { make in
@@ -256,31 +270,16 @@ class CreateRecipeViewController: UIViewController {
             make.leading.equalTo(productImageView)
         }
         
-        ingredientQuantityTF.snp.makeConstraints { make in
-            make.top.equalTo(ingredientsLabel.snp.bottom).inset(-16)
-            make.trailing.equalToSuperview().inset(68)
-            make.height.equalTo(44)
-            make.width.equalTo(115)
-        }
-        
-        ingredientNameTF.snp.makeConstraints { make in
-            make.centerY.equalTo(ingredientQuantityTF)
-            make.trailing.equalTo(ingredientQuantityTF.snp.leading).inset(-12)
-            make.leading.equalTo(productImageView)
-            make.height.equalTo(44)
-            make.width.equalTo(115)
-        }
-        
-        minusImageView.snp.makeConstraints { make in
-            make.leading.equalTo(ingredientQuantityTF.snp.trailing).inset(-12)
-            make.centerY.equalTo(ingredientQuantityTF)
+        tableViewIngredients.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(ingredientsLabel.snp.bottom).inset(-8)
+            make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
         }
         
         plusIngerientImageView.snp.makeConstraints { make in
-            make.top.equalTo(ingredientQuantityTF.snp.bottom).inset(-19.6)
+            make.top.equalTo(tableViewIngredients.snp.bottom).inset(-8)
             make.leading.equalTo(productImageView)
-            make.height.equalTo(24)
-            make.width.equalTo(plusIngerientImageView.snp.height)
+            make.height.width.equalTo(24)
         }
         
         addLabel.snp.makeConstraints { make in
@@ -294,7 +293,21 @@ class CreateRecipeViewController: UIViewController {
             make.height.equalTo(56)
             make.top.equalTo(addLabel.snp.bottom).inset(-58.2)
         }
+
         
     }
+    
+}
+
+extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numberOfCells
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
+        return cell
+    }
+    
     
 }
