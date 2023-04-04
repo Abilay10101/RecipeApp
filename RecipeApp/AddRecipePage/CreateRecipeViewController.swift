@@ -28,8 +28,6 @@ class CreateRecipeViewController: UIViewController {
     var addLabel: UILabel!
     var createRecipeButton: UIButton!
     
-    let imagePicker = UIImagePickerController()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,7 +61,6 @@ class CreateRecipeViewController: UIViewController {
         productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
         productImageView.clipsToBounds = true
-        productImageView.isUserInteractionEnabled = true
         scrollView.addSubview(productImageView)
         
         editImageView = UIImageView(image: UIImage(named: "Edit"))
@@ -71,8 +68,8 @@ class CreateRecipeViewController: UIViewController {
         editImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
         editImageView.addGestureRecognizer(tapGesture)
-        productImageView.addSubview(editImageView)
-       
+        scrollView.addSubview(editImageView)
+        
         
         
         nameTF = UITextField()
@@ -124,7 +121,7 @@ class CreateRecipeViewController: UIViewController {
         cookTimeImageView = UIImageView(image: UIImage(named: "cookTimeIcon"))
         cookTimeImageView.translatesAutoresizingMaskIntoConstraints = false
         cookTimeView.addSubview(cookTimeImageView)
-                                        
+        
         cookTimeLabel = UILabel()
         cookTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         cookTimeLabel.text = "Cook time"
@@ -160,7 +157,7 @@ class CreateRecipeViewController: UIViewController {
         tableViewIngredients.rowHeight = 60
         tableViewIngredients.backgroundColor = .yellow
         scrollView.addSubview(tableViewIngredients)
-                
+        
         plusIngerientImageView = UIImageView()
         plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
         plusIngerientImageView.image = UIImage(named: "Union")
@@ -180,11 +177,6 @@ class CreateRecipeViewController: UIViewController {
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50
         scrollView.addSubview(createRecipeButton)
-        
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
-        
         
     }
     
@@ -208,7 +200,7 @@ class CreateRecipeViewController: UIViewController {
         }
         
         editImageView.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(0)
+            make.top.trailing.equalTo(editImageView).inset(0)
             make.width.equalTo(72)
             make.height.equalTo(80)
         }
@@ -307,16 +299,11 @@ class CreateRecipeViewController: UIViewController {
             make.height.equalTo(56)
             make.top.equalTo(addLabel.snp.bottom).inset(-58.2)
         }
-
+        
         
     }
     
     @objc func getImage() {
-//             present(imagePicker, animated: true)
-        presentPickerView()
-    }
-    
-    func presentPickerView() {
         var configuration = PHPickerConfiguration()
         configuration.filter = PHPickerFilter.any(of: [.images, .livePhotos])
         configuration.selectionLimit = 1
@@ -325,7 +312,9 @@ class CreateRecipeViewController: UIViewController {
         picker.delegate = self
         self.present(picker, animated: true)
     }
+    
 }
+
 
 extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -338,15 +327,6 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
-}
-
-extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            productImageView.image = pickedImage
-        }
-        dismiss(animated: true)
-    }
 }
 
 extension CreateRecipeViewController: PHPickerViewControllerDelegate {
