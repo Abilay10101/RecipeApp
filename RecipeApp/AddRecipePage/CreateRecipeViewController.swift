@@ -2,6 +2,7 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
 class CreateRecipeViewController: UIViewController {
     
@@ -311,7 +312,18 @@ class CreateRecipeViewController: UIViewController {
     }
     
     @objc func getImage() {
-             present(imagePicker, animated: true)
+//             present(imagePicker, animated: true)
+        presentPickerView()
+    }
+    
+    func presentPickerView() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = PHPickerFilter.any(of: [.images, .livePhotos])
+        configuration.selectionLimit = 1
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
     }
 }
 
@@ -335,4 +347,24 @@ extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINaviga
         }
         dismiss(animated: true)
     }
+}
+
+extension CreateRecipeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        for item in results {
+            item.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage, error == nil else {
+                    print(error?.localizedDescription)
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.productImageView.image = image
+                }
+            }
+        }
+        dismiss(animated: true)
+    }
+    
+    
 }
