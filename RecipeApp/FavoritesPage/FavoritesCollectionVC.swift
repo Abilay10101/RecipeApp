@@ -46,7 +46,13 @@ class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelega
             return barBtn2
         }()
         
-        navigationItem.setRightBarButtonItems([barBtn2], animated: true)
+        lazy var addBarButton: UIBarButtonItem = {
+            let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushCreateRecipePage))
+            button.tintColor = .tabBarItemAccent
+            return button
+        }()
+        
+        navigationItem.setRightBarButtonItems([barBtn2, addBarButton], animated: true)
         
         configureSearchController()
         
@@ -122,6 +128,11 @@ class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelega
 
         }
         
+    }
+    
+    @objc func pushCreateRecipePage() {
+        let vc = CreateRecipeViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func function2 () {

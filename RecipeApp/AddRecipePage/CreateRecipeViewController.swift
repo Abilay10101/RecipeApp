@@ -37,6 +37,7 @@ final class CreateRecipeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setup()
         setLayout()
+        tabBarController?.tabBar.isHidden = true
         
     }
     
