@@ -34,13 +34,19 @@ final class CreateRecipeViewController: UIViewController {
             servesQuantityTF.text = textServesQuantity
         }
     }
+    private let maxCookTimeDuration = "4+ hours"
     private var textCookTimeDuration: String = "0 min" {
         didSet {
-            cookTimeDurationTF.text = "\(textCookTimeDuration) min"
+            if textCookTimeDuration == maxCookTimeDuration {
+                cookTimeDurationTF.text = textCookTimeDuration
+            } else {
+                cookTimeDurationTF.text = "\(textCookTimeDuration) min"
+            }
         }
     }
     private let arrayServesQuantuty = Array(1...10)
-    private var arrayCookTimeDuration = Array(1...5)
+    private var arrayCookTimeDuration = Array(1...5).map { String($0)}
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -354,9 +360,9 @@ final class CreateRecipeViewController: UIViewController {
     
     func setArrayCookTimeDuration() {
         for i in 2...48 {
-            arrayCookTimeDuration.append(i*5)
+            arrayCookTimeDuration.append(String(i*5))
         }
-        
+        arrayCookTimeDuration.append(maxCookTimeDuration)
     }
     
     //MARK: - objc functions for actions
@@ -429,7 +435,7 @@ extension CreateRecipeViewController: UIPickerViewDelegate {
         
         switch pickerView {
         case servesPicker: return String(arrayServesQuantuty[row])
-        case cookTimePicker: return String(arrayCookTimeDuration[row])
+        case cookTimePicker: return arrayCookTimeDuration[row]
         default: return "No such picker"
         }
     }
@@ -439,7 +445,7 @@ extension CreateRecipeViewController: UIPickerViewDelegate {
         case servesPicker:
             textServesQuantity = String(arrayServesQuantuty[row])
         case cookTimePicker:
-            textCookTimeDuration = String(arrayCookTimeDuration[row])
+            textCookTimeDuration = arrayCookTimeDuration[row]
         default: break
         }
     }
