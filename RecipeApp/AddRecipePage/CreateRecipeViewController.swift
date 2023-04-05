@@ -29,7 +29,18 @@ final class CreateRecipeViewController: UIViewController {
     private var createRecipeButton: UIButton!
     private var pickerToolbar: UIToolbar!
     private var servesPicker, cookTimePicker: UIPickerView!
-    
+    private var textServesQuantity: String = "0" {
+        didSet {
+            servesQuantityTF.text = textServesQuantity
+        }
+    }
+    private var textCookTimeDuration: String = "0 min" {
+        didSet {
+            cookTimeDurationTF.text = "\(textCookTimeDuration) min"
+        }
+    }
+    private let arrayServesQuantuty = Array(1...10)
+    private var arrayCookTimeDuration = Array(1...5)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +48,7 @@ final class CreateRecipeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setup()
         setLayout()
-        tabBarController?.tabBar.isHidden = true
+        setArrayCookTimeDuration()
         
     }
     
@@ -45,9 +56,26 @@ final class CreateRecipeViewController: UIViewController {
         super.viewDidAppear(animated)
         let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
         scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY )
+        tabBarController?.tabBar.isHidden = true
     }
     
     func setup() {
+        
+        pickerToolbar = UIToolbar()
+        pickerToolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+        pickerToolbar.setItems([doneButton], animated: true)
+        pickerToolbar.updateConstraintsIfNeeded()
+        
+        servesPicker = UIPickerView()
+        servesPicker.contentMode = .bottom
+        servesPicker.delegate = self
+        servesPicker.dataSource = self
+        
+        cookTimePicker = UIPickerView()
+        cookTimePicker.contentMode = .bottom
+        cookTimePicker.delegate = self
+        cookTimePicker.dataSource = self
         
         scrollView = UIScrollView(frame: view.frame)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,12 +135,14 @@ final class CreateRecipeViewController: UIViewController {
         
         servesQuantityTF = UITextField()
         servesQuantityTF.translatesAutoresizingMaskIntoConstraints = false
-        servesQuantityTF.placeholder = "0"
+        servesQuantityTF.placeholder = textServesQuantity
         servesQuantityTF.font = .poppins(14, weight: .regular)
         servesQuantityTF.textColor = .neutral50
-        servesView.addSubview(servesQuantityTF)
-        servesQuantityTF.inputAccessoryView = pickerToolbar
         servesQuantityTF.inputView = servesPicker
+        servesQuantityTF.inputAccessoryView = pickerToolbar
+        servesView.addSubview(servesQuantityTF)
+        
+        
         
         servesArrowImageView = UIImageView()
         servesArrowImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -144,12 +174,13 @@ final class CreateRecipeViewController: UIViewController {
         
         cookTimeDurationTF = UITextField()
         cookTimeDurationTF.translatesAutoresizingMaskIntoConstraints = false
-        cookTimeDurationTF.placeholder = "0 min"
+        cookTimeDurationTF.placeholder = textCookTimeDuration
         cookTimeDurationTF.font = .poppins(14, weight: .regular)
         cookTimeDurationTF.textColor = .neutral50
-        cookTimeView.addSubview(cookTimeDurationTF)
-        cookTimeDurationTF.inputAccessoryView = pickerToolbar
         cookTimeDurationTF.inputView = cookTimePicker
+        cookTimeDurationTF.inputAccessoryView = pickerToolbar
+        cookTimeView.addSubview(cookTimeDurationTF)
+        
         
         cookTimeArrowImageView = UIImageView(image: UIImage(named: "ArrowRightIcon"))
         cookTimeArrowImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -196,22 +227,6 @@ final class CreateRecipeViewController: UIViewController {
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50
         scrollView.addSubview(createRecipeButton)
-        
-        pickerToolbar = UIToolbar()
-        pickerToolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
-        pickerToolbar.setItems([doneButton], animated: true)
-        pickerToolbar.updateConstraintsIfNeeded()
-        
-        servesPicker = UIPickerView()
-        servesPicker.contentMode = .bottom
-        servesPicker.delegate = self
-        servesPicker.dataSource = self
-        
-        cookTimePicker = UIPickerView()
-        cookTimePicker.contentMode = .bottom
-        cookTimePicker.delegate = self
-        cookTimePicker.dataSource = self
         
     }
     
@@ -335,8 +350,16 @@ final class CreateRecipeViewController: UIViewController {
             make.top.equalTo(addLabel.snp.bottom).inset(-58.2)
         }
         
+    }
+    
+    func setArrayCookTimeDuration() {
+        for i in 2...48 {
+            arrayCookTimeDuration.append(i*5)
+        }
         
     }
+    
+    //MARK: - objc functions for actions
     
     @objc func setCookTime() {
         cookTimeDurationTF.becomeFirstResponder()
@@ -347,7 +370,7 @@ final class CreateRecipeViewController: UIViewController {
     }
     
     @objc func doneButtonPressed() {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     @objc func getImage() {
@@ -362,6 +385,7 @@ final class CreateRecipeViewController: UIViewController {
     
 }
 
+//MARK: - TableView Delegate&DataSource
 
 extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -375,6 +399,8 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     
     
 }
+
+//MARK: - PHPickerView Delegate
 
 extension CreateRecipeViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -395,16 +421,32 @@ extension CreateRecipeViewController: PHPickerViewControllerDelegate {
     
 }
 
+//MARK: - UIPickerView Delegate
+
 extension CreateRecipeViewController: UIPickerViewDelegate {
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        "Title"
+        
+        switch pickerView {
+        case servesPicker: return String(arrayServesQuantuty[row])
+        case cookTimePicker: return String(arrayCookTimeDuration[row])
+        default: return "No such picker"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        switch pickerView {
+        case servesPicker:
+            textServesQuantity = String(arrayServesQuantuty[row])
+        case cookTimePicker:
+            textCookTimeDuration = String(arrayCookTimeDuration[row])
+        default: break
+        }
     }
     
 }
+
+//MARK: - UIPickerView DataSource
 
 extension CreateRecipeViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -413,8 +455,8 @@ extension CreateRecipeViewController: UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
-        case servesPicker: return 10
-        case cookTimePicker: return 48
+        case servesPicker: return arrayServesQuantuty.count
+        case cookTimePicker: return arrayCookTimeDuration.count
         default: return 1
         }
     }

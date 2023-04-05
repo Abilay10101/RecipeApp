@@ -51,14 +51,15 @@ class FavoritesCollectionVC: UICollectionViewController , UICollectionViewDelega
             button.tintColor = .tabBarItemAccent
             return button
         }()
-        
         navigationItem.setRightBarButtonItems([barBtn2, addBarButton], animated: true)
         
         configureSearchController()
-        
-        
-        
         getAllItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     func clearFunc() {
