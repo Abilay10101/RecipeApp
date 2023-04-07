@@ -55,7 +55,12 @@ final class CreateRecipeViewController: UIViewController {
         setup()
         setLayout()
         setArrayCookTimeDuration()
+        registerForKBNotifications()
         
+    }
+    
+    deinit {
+        removeKeyboardNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -148,8 +153,6 @@ final class CreateRecipeViewController: UIViewController {
         servesQuantityTF.inputAccessoryView = pickerToolbar
         servesView.addSubview(servesQuantityTF)
         
-        
-        
         servesArrowImageView = UIImageView()
         servesArrowImageView.translatesAutoresizingMaskIntoConstraints = false
         servesArrowImageView.image = UIImage(named: "ArrowRightIcon")
@@ -157,7 +160,6 @@ final class CreateRecipeViewController: UIViewController {
         servesArrowImageView.isUserInteractionEnabled = true
         let servesTap = UITapGestureRecognizer(target: self, action: #selector(setServesQuantity))
         servesArrowImageView.addGestureRecognizer(servesTap)
-        
         
         cookTimeView = UIView()
         cookTimeView.translatesAutoresizingMaskIntoConstraints = false
@@ -177,7 +179,6 @@ final class CreateRecipeViewController: UIViewController {
         cookTimeLabel.textColor = .neutral100
         cookTimeView.addSubview(cookTimeLabel)
         
-        
         cookTimeDurationTF = UITextField()
         cookTimeDurationTF.translatesAutoresizingMaskIntoConstraints = false
         cookTimeDurationTF.placeholder = textCookTimeDuration
@@ -186,7 +187,6 @@ final class CreateRecipeViewController: UIViewController {
         cookTimeDurationTF.inputView = cookTimePicker
         cookTimeDurationTF.inputAccessoryView = pickerToolbar
         cookTimeView.addSubview(cookTimeDurationTF)
-        
         
         cookTimeArrowImageView = UIImageView(image: UIImage(named: "ArrowRightIcon"))
         cookTimeArrowImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -358,6 +358,16 @@ final class CreateRecipeViewController: UIViewController {
         
     }
     
+    func registerForKBNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification() {
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
+    
     func setArrayCookTimeDuration() {
         for i in 2...48 {
             arrayCookTimeDuration.append(String(i*5))
@@ -366,6 +376,16 @@ final class CreateRecipeViewController: UIViewController {
     }
     
     //MARK: - objc functions for actions
+    
+    @objc func kbWillHide() {
+        scrollView.contentOffset = CGPoint.zero
+    }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height/2)
+    }
     
     @objc func setCookTime() {
         cookTimeDurationTF.becomeFirstResponder()
