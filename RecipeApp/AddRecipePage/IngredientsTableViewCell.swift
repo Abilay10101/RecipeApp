@@ -35,6 +35,7 @@ class IngredientsTableViewCell: UITableViewCell {
         ingredientQuantityTF.textColor = UIColor.neutral100
         ingredientQuantityTF.indent(size: 15)
         ingredientQuantityTF.keyboardType = .numberPad
+        ingredientQuantityTF.delegate = self
         contentView.addSubview(ingredientQuantityTF)
 
         ingredientNameTF = UITextField()
@@ -45,6 +46,7 @@ class IngredientsTableViewCell: UITableViewCell {
         ingredientNameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
         ingredientNameTF.textColor = UIColor.neutral100
         ingredientNameTF.indent(size: 15)
+        ingredientNameTF.delegate = self
         contentView.addSubview(ingredientNameTF)
     }
     
@@ -78,3 +80,10 @@ class IngredientsTableViewCell: UITableViewCell {
     
 }
 
+extension IngredientsTableViewCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}

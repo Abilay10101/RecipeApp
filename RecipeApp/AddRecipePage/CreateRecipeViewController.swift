@@ -123,6 +123,7 @@ final class CreateRecipeViewController: UIViewController {
         nameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
         nameTF.textColor = UIColor.neutral100
         nameTF.indent(size: 15)
+        nameTF.delegate = self
         scrollView.addSubview(nameTF)
         
         servesView = UIView()
@@ -151,6 +152,7 @@ final class CreateRecipeViewController: UIViewController {
         servesQuantityTF.textColor = .neutral50
         servesQuantityTF.inputView = servesPicker
         servesQuantityTF.inputAccessoryView = pickerToolbar
+        servesQuantityTF.delegate = self
         servesView.addSubview(servesQuantityTF)
         
         servesArrowImageView = UIImageView()
@@ -186,6 +188,7 @@ final class CreateRecipeViewController: UIViewController {
         cookTimeDurationTF.textColor = .neutral50
         cookTimeDurationTF.inputView = cookTimePicker
         cookTimeDurationTF.inputAccessoryView = pickerToolbar
+        cookTimeDurationTF.delegate = self
         cookTimeView.addSubview(cookTimeDurationTF)
         
         cookTimeArrowImageView = UIImageView(image: UIImage(named: "ArrowRightIcon"))
@@ -434,7 +437,7 @@ extension CreateRecipeViewController: PHPickerViewControllerDelegate {
         for item in results {
             item.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                 guard let image = image as? UIImage, error == nil else {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                     return
                 }
                 DispatchQueue.main.async {
@@ -487,5 +490,13 @@ extension CreateRecipeViewController: UIPickerViewDataSource {
         }
     }
     
-    
+}
+
+//MARK: - UITextFieldDelegate
+
+extension CreateRecipeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
