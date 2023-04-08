@@ -46,6 +46,7 @@ final class CreateRecipeViewController: UIViewController {
     }
     private let arrayServesQuantuty = Array(1...10)
     private var arrayCookTimeDuration = Array(1...5).map { String($0)}
+    var keyboardDismissTapGesture: UIGestureRecognizer?
     
     
     override func viewDidLoad() {
@@ -59,15 +60,18 @@ final class CreateRecipeViewController: UIViewController {
         
     }
     
-    deinit {
-        removeKeyboardNotification()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
         scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY )
         tabBarController?.tabBar.isHidden = true
+        registerForKBNotifications()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyboardNotification()
+        super.viewWillDisappear(animated)
     }
     
     func setup() {
@@ -382,12 +386,22 @@ final class CreateRecipeViewController: UIViewController {
     
     @objc func kbWillHide() {
         scrollView.contentOffset = CGPoint.zero
+        if keyboardDismissTapGesture != nil {
+            view.removeGestureRecognizer(keyboardDismissTapGesture!)
+            keyboardDismissTapGesture = nil
+        }
     }
     
     @objc func kbWillShow(_ notification: Notification) {
         let userInfo = notification.userInfo
         let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height/2)
+        
+        if keyboardDismissTapGesture == nil {
+            keyboardDismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(doneButtonPressed))
+            keyboardDismissTapGesture?.cancelsTouchesInView = false
+            view.addGestureRecognizer(keyboardDismissTapGesture!)
+        }
     }
     
     @objc func setCookTime() {
