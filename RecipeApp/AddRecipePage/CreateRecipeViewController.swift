@@ -408,7 +408,7 @@ final class CreateRecipeViewController: UIViewController {
     }
     
     @objc func kbWillHide() {
-        scrollView.contentOffset = CGPoint.zero
+        view.frame.origin.y = 0
         if keyboardDismissTapGesture != nil {
             view.removeGestureRecognizer(keyboardDismissTapGesture!)
             keyboardDismissTapGesture = nil
@@ -418,7 +418,7 @@ final class CreateRecipeViewController: UIViewController {
     @objc func kbWillShow(_ notification: Notification) {
         let userInfo = notification.userInfo
         let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height/2)
+        view.frame.origin.y = -kbFrameSize.height
         
         if keyboardDismissTapGesture == nil {
             keyboardDismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(doneButtonPressed))
