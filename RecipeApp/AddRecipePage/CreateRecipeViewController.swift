@@ -437,6 +437,7 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
+        cell.ingredientQuantityTF.inputAccessoryView = pickerToolbar
         return cell
     }
     
