@@ -46,7 +46,7 @@ final class CreateRecipeViewController: UIViewController {
     }
     private let arrayServesQuantuty = Array(1...10)
     private var arrayCookTimeDuration = Array(1...5).map { String($0)}
-    var keyboardDismissTapGesture: UIGestureRecognizer?
+    private var keyboardDismissTapGesture: UIGestureRecognizer?
     
     
     override func viewDidLoad() {
@@ -62,8 +62,7 @@ final class CreateRecipeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY )
+        setScrollViewContentSize()
         tabBarController?.tabBar.isHidden = true
         registerForKBNotifications()
         
@@ -117,8 +116,6 @@ final class CreateRecipeViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
         editImageView.addGestureRecognizer(tapGesture)
         scrollView.addSubview(editImageView)
-        
-        
         
         nameTF = UITextField()
         nameTF.translatesAutoresizingMaskIntoConstraints = false
@@ -225,6 +222,9 @@ final class CreateRecipeViewController: UIViewController {
         plusIngerientImageView = UIImageView()
         plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
         plusIngerientImageView.image = UIImage(named: "Union")
+        plusIngerientImageView.isUserInteractionEnabled = true
+        let addTapGesture = UITapGestureRecognizer(target: self, action: #selector(addIngredientCell))
+        plusIngerientImageView.addGestureRecognizer(addTapGesture)
         scrollView.addSubview(plusIngerientImageView)
         
         addLabel = UILabel()
@@ -232,6 +232,8 @@ final class CreateRecipeViewController: UIViewController {
         addLabel.text = "Add new ingredient"
         addLabel.font = .poppins(16, weight: .bold)
         addLabel.textColor = .neutral100
+        addLabel.isUserInteractionEnabled = true
+        addLabel.addGestureRecognizer(addTapGesture)
         scrollView.addSubview(addLabel)
         
         createRecipeButton = UIButton(type: .system)
@@ -383,7 +385,27 @@ final class CreateRecipeViewController: UIViewController {
         arrayCookTimeDuration.append(maxCookTimeDuration)
     }
     
+    fileprivate func setScrollViewContentSize() {
+        let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
+        if numberOfCells > 1 {
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY + 60)
+        } else {
+            scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY)
+        }
+        print(createRecipeButtonFrame.maxY)
+    }
+    
     //MARK: - objc functions for actions
+    
+    @objc func addIngredientCell() {
+        numberOfCells += 1
+        tableViewIngredients.snp.updateConstraints { make in
+            make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
+        }
+        tableViewIngredients.reloadData()
+        setScrollViewContentSize()
+        
+    }
     
     @objc func kbWillHide() {
         scrollView.contentOffset = CGPoint.zero
