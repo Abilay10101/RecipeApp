@@ -461,6 +461,16 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
         cell.ingredientQuantityTF.inputAccessoryView = pickerToolbar
+        cell.deleteHandler = {
+            self.numberOfCells -= 1
+            self.tableViewIngredients.deleteRows(at: [indexPath], with: .automatic)
+            self.setScrollViewContentSize()
+            self.tableViewIngredients.snp.updateConstraints { make in
+                make.height.equalTo(Int(self.tableViewIngredients.rowHeight) * self.numberOfCells)
+            }
+            self.tableViewIngredients.reloadData()
+            self.setScrollViewContentSize()
+        }
         return cell
     }
     

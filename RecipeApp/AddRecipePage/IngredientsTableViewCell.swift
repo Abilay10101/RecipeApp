@@ -13,6 +13,7 @@ class IngredientsTableViewCell: UITableViewCell {
     var minusImageView: UIImageView!
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
+    var deleteHandler: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +25,9 @@ class IngredientsTableViewCell: UITableViewCell {
         minusImageView = UIImageView()
         minusImageView.translatesAutoresizingMaskIntoConstraints = false
         minusImageView.image = UIImage(named: "Minus-Border")
+        minusImageView.isUserInteractionEnabled = true
+        let deleteTapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtonPressed))
+        minusImageView.addGestureRecognizer(deleteTapGesture)
         contentView.addSubview(minusImageView)
         
         ingredientQuantityTF = UITextField()
@@ -76,6 +80,12 @@ class IngredientsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @objc func deleteButtonPressed() {
+        if let handler = deleteHandler{
+            handler()
+        }
     }
     
 }
