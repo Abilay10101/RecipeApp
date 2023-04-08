@@ -2,47 +2,95 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
-class CreateRecipeViewController: UIViewController {
+final class CreateRecipeViewController: UIViewController {
     
-    var scrollView: UIScrollView!
-    var createRecipeLabel: UILabel!
-    var productImageView: UIImageView!
-    var editImageView: UIImageView!
-    var nameTF: UITextField!
-    var servesView: UIView!
-    var servesImageView: UIImageView!
-    var servesLabel: UILabel!
-    var servesQuantityLabel: UILabel!
-    var servesArrowImageView: UIImageView!
-    var cookTimeView: UIView!
-    var cookTimeImageView: UIImageView!
-    var cookTimeLabel: UILabel!
-    var cookTimeDurationLabel: UILabel!
-    var cookTimeArrowImageView: UIImageView!
-    var ingredientsLabel: UILabel!
-    var tableViewIngredients: UITableView!
-    var numberOfCells = 2
-    var plusIngerientImageView: UIImageView!
-    var addLabel: UILabel!
-    var createRecipeButton: UIButton!
-
+    private var scrollView: UIScrollView!
+    private var createRecipeLabel: UILabel!
+    private var productImageView: UIImageView!
+    private var editImageView: UIImageView!
+    private var nameTF: UITextField!
+    private var servesView: UIView!
+    private var servesImageView: UIImageView!
+    private var servesLabel: UILabel!
+    private var servesQuantityTF: UITextField!
+    private var servesArrowImageView: UIImageView!
+    private var cookTimeView: UIView!
+    private var cookTimeImageView: UIImageView!
+    private var cookTimeLabel: UILabel!
+    private var cookTimeDurationTF: UITextField!
+    private var cookTimeArrowImageView: UIImageView!
+    private var ingredientsLabel: UILabel!
+    private var tableViewIngredients: UITableView!
+    private var numberOfCells = 1
+    private var plusIngerientImageView: UIImageView!
+    private var addLabel: UILabel!
+    private var createRecipeButton: UIButton!
+    private var pickerToolbar: UIToolbar!
+    private var servesPicker, cookTimePicker: UIPickerView!
+    private var textServesQuantity: String = "0" {
+        didSet {
+            servesQuantityTF.text = textServesQuantity
+        }
+    }
+    private let maxCookTimeDuration = "4+ hours"
+    private var textCookTimeDuration: String = "0 min" {
+        didSet {
+            if textCookTimeDuration == maxCookTimeDuration {
+                cookTimeDurationTF.text = textCookTimeDuration
+            } else {
+                cookTimeDurationTF.text = "\(textCookTimeDuration) min"
+            }
+        }
+    }
+    private let arrayServesQuantuty = Array(1...10)
+    private var arrayCookTimeDuration = Array(1...5).map { String($0)}
+    private var keyboardDismissTapGesture: UIGestureRecognizer?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
         setup()
         setLayout()
+        setArrayCookTimeDuration()
+        registerForKBNotifications()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY )
+        setScrollViewContentSize()
+        tabBarController?.tabBar.isHidden = true
+        registerForKBNotifications()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyboardNotification()
+        super.viewWillDisappear(animated)
     }
     
     func setup() {
+        
+        pickerToolbar = UIToolbar()
+        pickerToolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        pickerToolbar.setItems([flexSpace, doneButton], animated: true)
+        pickerToolbar.updateConstraintsIfNeeded()
+        
+        servesPicker = UIPickerView()
+        servesPicker.contentMode = .bottom
+        servesPicker.delegate = self
+        servesPicker.dataSource = self
+        
+        cookTimePicker = UIPickerView()
+        cookTimePicker.contentMode = .bottom
+        cookTimePicker.delegate = self
+        cookTimePicker.dataSource = self
         
         scrollView = UIScrollView(frame: view.frame)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,11 +107,15 @@ class CreateRecipeViewController: UIViewController {
         productImageView.translatesAutoresizingMaskIntoConstraints = false
         productImageView.backgroundColor = .neutral10
         productImageView.layer.cornerRadius = 12
+        productImageView.clipsToBounds = true
         scrollView.addSubview(productImageView)
         
         editImageView = UIImageView(image: UIImage(named: "Edit"))
         editImageView.translatesAutoresizingMaskIntoConstraints = false
-        productImageView.addSubview(editImageView)
+        editImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getImage))
+        editImageView.addGestureRecognizer(tapGesture)
+        scrollView.addSubview(editImageView)
         
         nameTF = UITextField()
         nameTF.translatesAutoresizingMaskIntoConstraints = false
@@ -73,12 +125,14 @@ class CreateRecipeViewController: UIViewController {
         nameTF.font = UIFont.poppins(14, weight: PoppinsWeight.regular)
         nameTF.textColor = UIColor.neutral100
         nameTF.indent(size: 15)
+        nameTF.delegate = self
         scrollView.addSubview(nameTF)
         
         servesView = UIView()
         servesView.translatesAutoresizingMaskIntoConstraints = false
         servesView.backgroundColor = UIColor.neutral10
         servesView.layer.cornerRadius = 12
+        servesView.isUserInteractionEnabled = true
         scrollView.addSubview(servesView)
         
         servesImageView = UIImageView()
@@ -93,28 +147,35 @@ class CreateRecipeViewController: UIViewController {
         servesLabel.textColor = .neutral100
         servesView.addSubview(servesLabel)
         
-        servesQuantityLabel = UILabel()
-        servesQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
-        servesQuantityLabel.text = "03"
-        servesQuantityLabel.font = .poppins(14, weight: .regular)
-        servesQuantityLabel.textColor = .neutral50
-        servesView.addSubview(servesQuantityLabel)
+        servesQuantityTF = UITextField()
+        servesQuantityTF.translatesAutoresizingMaskIntoConstraints = false
+        servesQuantityTF.placeholder = textServesQuantity
+        servesQuantityTF.font = .poppins(14, weight: .regular)
+        servesQuantityTF.textColor = .neutral50
+        servesQuantityTF.inputView = servesPicker
+        servesQuantityTF.inputAccessoryView = pickerToolbar
+        servesQuantityTF.delegate = self
+        servesView.addSubview(servesQuantityTF)
         
         servesArrowImageView = UIImageView()
         servesArrowImageView.translatesAutoresizingMaskIntoConstraints = false
         servesArrowImageView.image = UIImage(named: "ArrowRightIcon")
         servesView.addSubview(servesArrowImageView)
+        servesArrowImageView.isUserInteractionEnabled = true
+        let servesTap = UITapGestureRecognizer(target: self, action: #selector(setServesQuantity))
+        servesArrowImageView.addGestureRecognizer(servesTap)
         
         cookTimeView = UIView()
         cookTimeView.translatesAutoresizingMaskIntoConstraints = false
         cookTimeView.backgroundColor = UIColor.neutral10
         cookTimeView.layer.cornerRadius = 12
+        cookTimeView.isUserInteractionEnabled = true
         scrollView.addSubview(cookTimeView)
         
         cookTimeImageView = UIImageView(image: UIImage(named: "cookTimeIcon"))
         cookTimeImageView.translatesAutoresizingMaskIntoConstraints = false
         cookTimeView.addSubview(cookTimeImageView)
-                                        
+        
         cookTimeLabel = UILabel()
         cookTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         cookTimeLabel.text = "Cook time"
@@ -122,16 +183,23 @@ class CreateRecipeViewController: UIViewController {
         cookTimeLabel.textColor = .neutral100
         cookTimeView.addSubview(cookTimeLabel)
         
-        cookTimeDurationLabel = UILabel()
-        cookTimeDurationLabel.translatesAutoresizingMaskIntoConstraints = false
-        cookTimeDurationLabel.text = "20 min"
-        cookTimeDurationLabel.font = .poppins(14, weight: .regular)
-        cookTimeDurationLabel.textColor = .neutral50
-        cookTimeView.addSubview(cookTimeDurationLabel)
+        cookTimeDurationTF = UITextField()
+        cookTimeDurationTF.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeDurationTF.placeholder = textCookTimeDuration
+        cookTimeDurationTF.font = .poppins(14, weight: .regular)
+        cookTimeDurationTF.textColor = .neutral50
+        cookTimeDurationTF.inputView = cookTimePicker
+        cookTimeDurationTF.inputAccessoryView = pickerToolbar
+        cookTimeDurationTF.delegate = self
+        cookTimeView.addSubview(cookTimeDurationTF)
         
         cookTimeArrowImageView = UIImageView(image: UIImage(named: "ArrowRightIcon"))
         cookTimeArrowImageView.translatesAutoresizingMaskIntoConstraints = false
         cookTimeView.addSubview(cookTimeArrowImageView)
+        cookTimeView.isUserInteractionEnabled = true
+        cookTimeArrowImageView.isUserInteractionEnabled = true
+        let tapCookTime = UITapGestureRecognizer(target: self, action: #selector(setCookTime))
+        cookTimeArrowImageView.addGestureRecognizer(tapCookTime)
         
         ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
@@ -150,10 +218,13 @@ class CreateRecipeViewController: UIViewController {
         tableViewIngredients.rowHeight = 60
         tableViewIngredients.backgroundColor = .yellow
         scrollView.addSubview(tableViewIngredients)
-                
+        
         plusIngerientImageView = UIImageView()
         plusIngerientImageView.translatesAutoresizingMaskIntoConstraints = false
         plusIngerientImageView.image = UIImage(named: "Union")
+        plusIngerientImageView.isUserInteractionEnabled = true
+        let addTapGesture = UITapGestureRecognizer(target: self, action: #selector(addIngredientCell))
+        plusIngerientImageView.addGestureRecognizer(addTapGesture)
         scrollView.addSubview(plusIngerientImageView)
         
         addLabel = UILabel()
@@ -161,6 +232,8 @@ class CreateRecipeViewController: UIViewController {
         addLabel.text = "Add new ingredient"
         addLabel.font = .poppins(16, weight: .bold)
         addLabel.textColor = .neutral100
+        addLabel.isUserInteractionEnabled = true
+        addLabel.addGestureRecognizer(addTapGesture)
         scrollView.addSubview(addLabel)
         
         createRecipeButton = UIButton(type: .system)
@@ -170,7 +243,6 @@ class CreateRecipeViewController: UIViewController {
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50
         scrollView.addSubview(createRecipeButton)
-        
         
     }
     
@@ -194,7 +266,7 @@ class CreateRecipeViewController: UIViewController {
         }
         
         editImageView.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(0)
+            make.top.trailing.equalTo(productImageView).inset(0)
             make.width.equalTo(72)
             make.height.equalTo(80)
         }
@@ -229,7 +301,7 @@ class CreateRecipeViewController: UIViewController {
             make.trailing.equalToSuperview().inset(16)
         }
         
-        servesQuantityLabel.snp.makeConstraints { make in
+        servesQuantityTF.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(servesArrowImageView.snp.leading).inset(-8)
         }
@@ -260,7 +332,7 @@ class CreateRecipeViewController: UIViewController {
             make.trailing.equalToSuperview().inset(16)
         }
         
-        cookTimeDurationLabel.snp.makeConstraints { make in
+        cookTimeDurationTF.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(cookTimeArrowImageView.snp.leading).inset(-8)
         }
@@ -293,11 +365,94 @@ class CreateRecipeViewController: UIViewController {
             make.height.equalTo(56)
             make.top.equalTo(addLabel.snp.bottom).inset(-58.2)
         }
-
         
     }
     
+    func registerForKBNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification() {
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
+    
+    func setArrayCookTimeDuration() {
+        for i in 2...48 {
+            arrayCookTimeDuration.append(String(i*5))
+        }
+        arrayCookTimeDuration.append(maxCookTimeDuration)
+    }
+    
+    fileprivate func setScrollViewContentSize() {
+        let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
+        if numberOfCells > 1 {
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY + 60)
+        } else {
+            scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY)
+        }
+    }
+    
+    //MARK: - objc functions for actions
+    
+    @objc func addIngredientCell() {
+        numberOfCells += 1
+        tableViewIngredients.snp.updateConstraints { make in
+            make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
+        }
+        scrollView.setContentOffset(CGPoint(x: 0, y: ( (numberOfCells - 1) * 60)), animated: true)
+        tableViewIngredients.reloadData()
+        setScrollViewContentSize()
+        
+        
+    }
+    
+    @objc func kbWillHide() {
+        view.frame.origin.y = 0
+        if keyboardDismissTapGesture != nil {
+            view.removeGestureRecognizer(keyboardDismissTapGesture!)
+            keyboardDismissTapGesture = nil
+        }
+    }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        view.frame.origin.y = -kbFrameSize.height
+        
+        if keyboardDismissTapGesture == nil {
+            keyboardDismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(doneButtonPressed))
+            keyboardDismissTapGesture?.cancelsTouchesInView = false
+            view.addGestureRecognizer(keyboardDismissTapGesture!)
+        }
+    }
+    
+    @objc func setCookTime() {
+        cookTimeDurationTF.becomeFirstResponder()
+    }
+    
+    @objc func setServesQuantity() {
+        servesQuantityTF.becomeFirstResponder()
+    }
+    
+    @objc func doneButtonPressed() {
+        self.view.endEditing(true)
+    }
+    
+    @objc func getImage() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = PHPickerFilter.any(of: [.images, .livePhotos])
+        configuration.selectionLimit = 1
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
+    
 }
+
+//MARK: - TableView Delegate&DataSource
 
 extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -306,8 +461,91 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
+        cell.ingredientQuantityTF.inputAccessoryView = pickerToolbar
+        cell.deleteHandler = {
+            self.numberOfCells -= 1
+            self.tableViewIngredients.deleteRows(at: [indexPath], with: .automatic)
+            self.setScrollViewContentSize()
+            self.tableViewIngredients.snp.updateConstraints { make in
+                make.height.equalTo(Int(self.tableViewIngredients.rowHeight) * self.numberOfCells)
+            }
+            self.tableViewIngredients.reloadData()
+            self.setScrollViewContentSize()
+        }
         return cell
     }
     
     
+}
+
+//MARK: - PHPickerView Delegate
+
+extension CreateRecipeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        for item in results {
+            item.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage, error == nil else {
+                    print(error?.localizedDescription as Any)
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.productImageView.image = image
+                }
+            }
+        }
+        dismiss(animated: true)
+    }
+    
+}
+
+//MARK: - UIPickerView Delegate
+
+extension CreateRecipeViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        switch pickerView {
+        case servesPicker: return String(arrayServesQuantuty[row])
+        case cookTimePicker: return arrayCookTimeDuration[row]
+        default: return "No such picker"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView {
+        case servesPicker:
+            textServesQuantity = String(arrayServesQuantuty[row])
+        case cookTimePicker:
+            textCookTimeDuration = arrayCookTimeDuration[row]
+        default: break
+        }
+    }
+    
+}
+
+//MARK: - UIPickerView DataSource
+
+extension CreateRecipeViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView {
+        case servesPicker: return arrayServesQuantuty.count
+        case cookTimePicker: return arrayCookTimeDuration.count
+        default: return 1
+        }
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+
+extension CreateRecipeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
