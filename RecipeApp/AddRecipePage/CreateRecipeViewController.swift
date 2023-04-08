@@ -79,7 +79,8 @@ final class CreateRecipeViewController: UIViewController {
         pickerToolbar = UIToolbar()
         pickerToolbar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
-        pickerToolbar.setItems([doneButton], animated: true)
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        pickerToolbar.setItems([flexSpace, doneButton], animated: true)
         pickerToolbar.updateConstraintsIfNeeded()
         
         servesPicker = UIPickerView()
