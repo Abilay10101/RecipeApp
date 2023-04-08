@@ -392,7 +392,6 @@ final class CreateRecipeViewController: UIViewController {
         } else {
             scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY)
         }
-        print(createRecipeButtonFrame.maxY)
     }
     
     //MARK: - objc functions for actions
@@ -402,8 +401,10 @@ final class CreateRecipeViewController: UIViewController {
         tableViewIngredients.snp.updateConstraints { make in
             make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
         }
+        scrollView.setContentOffset(CGPoint(x: 0, y: ( (numberOfCells - 1) * 60)), animated: true)
         tableViewIngredients.reloadData()
         setScrollViewContentSize()
+        
         
     }
     

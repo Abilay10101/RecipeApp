@@ -21,7 +21,7 @@ class IngredientsTableViewCell: UITableViewCell {
         layout()
     }
 
-    func setup() {
+    private func setup() {
         minusImageView = UIImageView()
         minusImageView.translatesAutoresizingMaskIntoConstraints = false
         minusImageView.image = UIImage(named: "Minus-Border")
@@ -54,7 +54,7 @@ class IngredientsTableViewCell: UITableViewCell {
         contentView.addSubview(ingredientNameTF)
     }
     
-    func layout() {
+    private func layout() {
         ingredientQuantityTF.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
             make.trailing.equalToSuperview().inset(68)
@@ -77,10 +77,11 @@ class IngredientsTableViewCell: UITableViewCell {
 
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: animated)
 
         // Configure the view for the selected state
     }
+ 
     
     @objc func deleteButtonPressed() {
         if let handler = deleteHandler{
