@@ -58,6 +58,11 @@ final class CreateRecipeViewController: UIViewController {
         setArrayCookTimeDuration()
         registerForKBNotifications()
         
+        for family in UIFont.familyNames.sorted() {
+            let names  = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -239,6 +244,7 @@ final class CreateRecipeViewController: UIViewController {
         createRecipeButton = UIButton(type: .system)
         createRecipeButton.translatesAutoresizingMaskIntoConstraints = false
         createRecipeButton.setTitle("Create recipe", for: .normal)
+        createRecipeButton.titleLabel?.font = .poppins(16, weight: .regular)
         createRecipeButton.tintColor = .white
         createRecipeButton.layer.cornerRadius = 8
         createRecipeButton.backgroundColor = .primary50

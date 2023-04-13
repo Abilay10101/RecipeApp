@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04504A6D29E8491B00F9E4AC /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B162FB429BF976500F7B0B9 /* Poppins-SemiBold.ttf */; };
+		04504A6E29E8491F00F9E4AC /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B162FB529BF976500F7B0B9 /* Poppins-Regular.ttf */; };
+		04504A6F29E8492200F9E4AC /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B162FB629BF976500F7B0B9 /* Poppins-Bold.ttf */; };
 		04E79B9429C225790036E2E3 /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E79B9329C225790036E2E3 /* CreateRecipeViewController.swift */; };
 		04E79B9629C225A80036E2E3 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E79B9529C225A80036E2E3 /* UITextFieldExtension.swift */; };
 		04E79BBC29D28F7E0036E2E3 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E79BBA29D28F7E0036E2E3 /* IngredientsTableViewCell.swift */; };
@@ -410,8 +413,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04504A6D29E8491B00F9E4AC /* Poppins-SemiBold.ttf in Resources */,
 				04E79BBD29D28F7E0036E2E3 /* IngredientsTableViewCell.xib in Resources */,
+				04504A6F29E8492200F9E4AC /* Poppins-Bold.ttf in Resources */,
 				0BB7748329233FDA001F30C6 /* LaunchScreen.storyboard in Resources */,
+				04504A6E29E8491F00F9E4AC /* Poppins-Regular.ttf in Resources */,
 				27AE151829C0789800EB2347 /* Recipes.json in Resources */,
 				0BB7748029233FDA001F30C6 /* Assets.xcassets in Resources */,
 			);
