@@ -14,11 +14,16 @@ class IngredientsTableViewCell: UITableViewCell {
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
     var deleteHandler: (() -> Void)?
-
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
         layout()
+    }
+    
+    public func SetOutlets(name: String?, quantity: String?) {
+        ingredientNameTF.text = name
+        ingredientQuantityTF.text = quantity
     }
 
     private func setup() {

@@ -9,14 +9,15 @@ struct Recipe: Codable, Hashable {
 }
 
 struct CustomRecipe {
-    let name: String
-    let description: String
-    let image: UIImage
-    let ingredients: [Ingredient]
+    
+    var name: String?
+    var description: String?
+    var image: UIImage?
+    var ingredients: [Ingredient]?
 }
 
 struct Ingredient {
-    let name: String
-    let quantity: UInt8
+    var name: String?
+    var quantity: String?
 }
 
