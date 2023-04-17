@@ -23,7 +23,11 @@ final class CreateRecipeViewController: UIViewController {
     private var cookTimeArrowImageView: UIImageView!
     private var ingredientsLabel: UILabel!
     private var tableViewIngredients: UITableView!
-    private var numberOfCells = 1
+    private var numberOfCells = 1 {
+        willSet {
+            saveOutlets()
+        }
+    }
     private var plusIngerientImageView: UIImageView!
     private var addLabel: UILabel!
     private var createRecipeButton: UIButton!
@@ -47,6 +51,15 @@ final class CreateRecipeViewController: UIViewController {
     private let arrayServesQuantuty = Array(1...10)
     private var arrayCookTimeDuration = Array(1...5).map { String($0)}
     private var keyboardDismissTapGesture: UIGestureRecognizer?
+    private var arrayIngredients: [Ingredient]? = [Ingredient()] {
+        didSet {
+            print("""
+                    Total quantity: \(arrayIngredients?.count ?? 0)
+                    name: \(arrayIngredients?.last?.name ?? "")
+                    quantity: \(arrayIngredients?.last?.quantity ?? "")
+                    """)
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -57,11 +70,6 @@ final class CreateRecipeViewController: UIViewController {
         setLayout()
         setArrayCookTimeDuration()
         registerForKBNotifications()
-        
-        for family in UIFont.familyNames.sorted() {
-            let names  = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
         
     }
     
@@ -394,9 +402,17 @@ final class CreateRecipeViewController: UIViewController {
     fileprivate func setScrollViewContentSize() {
         let createRecipeButtonFrame = view.convert(createRecipeButton.frame, to: view)
         if numberOfCells > 1 {
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY + 60)
+            scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY + 60)
         } else {
             scrollView.contentSize = CGSize(width: view.bounds.width, height: createRecipeButtonFrame.maxY)
+        }
+    }
+    
+    private func saveOutlets() {
+        for index in 0..<numberOfCells {
+            guard let cell = tableViewIngredients.cellForRow(at: IndexPath(item: index, section: 0)) as? IngredientsTableViewCell else {return}
+            arrayIngredients?[index].quantity = cell.ingredientQuantityTF.text
+            arrayIngredients?[index].name = cell.ingredientNameTF.text
         }
     }
     
@@ -404,6 +420,7 @@ final class CreateRecipeViewController: UIViewController {
     
     @objc func addIngredientCell() {
         numberOfCells += 1
+        arrayIngredients?.append(Ingredient())
         tableViewIngredients.snp.updateConstraints { make in
             make.height.equalTo(Int(tableViewIngredients.rowHeight) * numberOfCells)
         }
@@ -468,9 +485,11 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell") as? IngredientsTableViewCell else {return UITableViewCell()}
         cell.ingredientQuantityTF.inputAccessoryView = pickerToolbar
+        //set cell's handlers
         cell.deleteHandler = {
             self.numberOfCells -= 1
             self.tableViewIngredients.deleteRows(at: [indexPath], with: .automatic)
+            self.arrayIngredients?.remove(at: indexPath.row)
             self.setScrollViewContentSize()
             self.tableViewIngredients.snp.updateConstraints { make in
                 make.height.equalTo(Int(self.tableViewIngredients.rowHeight) * self.numberOfCells)
@@ -478,6 +497,12 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
             self.tableViewIngredients.reloadData()
             self.setScrollViewContentSize()
         }
+        
+        //setup cell's outlets
+        let name = arrayIngredients?[indexPath.row].name
+        let quantity = arrayIngredients?[indexPath.row].quantity
+        cell.SetOutlets(name: name, quantity: quantity)
+        
         return cell
     }
     
