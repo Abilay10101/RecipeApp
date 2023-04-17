@@ -499,8 +499,8 @@ extension CreateRecipeViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         //setup cell's outlets
-        var name = arrayIngredients?[indexPath.row].name
-        var quantity = arrayIngredients?[indexPath.row].quantity
+        let name = arrayIngredients?[indexPath.row].name
+        let quantity = arrayIngredients?[indexPath.row].quantity
         cell.SetOutlets(name: name, quantity: quantity)
         
         return cell

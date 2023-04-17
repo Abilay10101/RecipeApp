@@ -10,7 +10,7 @@ import SnapKit
 
 class IngredientsTableViewCell: UITableViewCell {
     
-    var minusImageView: UIImageView!
+    private var minusImageView: UIImageView!
     var ingredientQuantityTF: UITextField!
     var ingredientNameTF: UITextField!
     var deleteHandler: (() -> Void)?
