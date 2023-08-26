@@ -1,4 +1,3 @@
-![](icon.png)
 <img src="icon.png" width="100" height="100">
 #  RecipeApp
 
@@ -24,4 +23,4 @@ Your favorite recipes are now in a new mobile application.
 
 ## Screenshots
 
-![](img1.png)![](img2.png)![](img3.png)![](img4.png)![](img4.png)![](img5.png)![](img6.png)
+<img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img1.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img2.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img3.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img4.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img5.png" alt="drawing" width="200"/> <img src="https://github.com/Abilay10101/NfactorialFinal/blob/main/img6.png" alt="drawing" width="200"/> 
